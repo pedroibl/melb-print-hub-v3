@@ -48,3 +48,5 @@ tree.txt
 .env.backup.sqlite
 
 /.heroku/
+
+/.heroku/
