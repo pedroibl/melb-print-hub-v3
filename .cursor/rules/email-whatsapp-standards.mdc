@@ -1,0 +1,66 @@
+# Email & WhatsApp Integration Standards
+
+## HTML Email System
+- Use Blade templates for email content: [resources/views/emails/](mdc:resources/views/emails/)
+- Implement responsive email design with inline CSS
+- Support dark mode in email templates
+- Use proper email-safe fonts and colors
+- Test emails across different email clients
+
+## Email Service Architecture
+- Use dedicated service classes for email functionality
+- Implement proper error handling for email sending
+- Use Laravel's Mail facade with proper configuration
+- Support both HTML and plain text email formats
+- Log email sending attempts and failures
+
+## Email Templates Structure
+- Main layout: [resources/views/emails/layouts/main.blade.php](mdc:resources/views/emails/layouts/main.blade.php)
+- Quote notifications: [resources/views/emails/quote-request.blade.php](mdc:resources/views/emails/quote-request.blade.php)
+- Contact notifications: [resources/views/emails/contact-message.blade.php](mdc:resources/views/emails/contact-message.blade.php)
+- Customer confirmations: [resources/views/emails/customer-quote-confirmation.blade.php](mdc:resources/views/emails/customer-quote-confirmation.blade.php)
+
+## Email Testing
+- Implement email testing dashboard: [resources/js/Pages/EmailTesting.jsx](mdc:resources/js/Pages/EmailTesting.jsx)
+- Test emails on both desktop and mobile platforms
+- Use email testing service: [app/Services/EmailTestingService.php](mdc:app/Services/EmailTestingService.php)
+- Test email templates across different email clients
+- Verify email delivery and formatting
+
+## WhatsApp Integration
+- Use direct `wa.me` links for simple chat opening
+- Implement WhatsApp Business API integration when needed
+- Use proper message templates and formatting
+- Handle WhatsApp button positioning for mobile devices
+- Test WhatsApp links on both iOS and Android
+
+## WhatsApp Services
+- Basic service: [app/Services/WhatsAppService.php](mdc:app/Services/WhatsAppService.php)
+- API service: [app/Services/WhatsAppAPIService.php](mdc:app/Services/WhatsAppAPIService.php)
+- Controllers: [app/Http/Controllers/WhatsAppController.php](mdc:app/Http/Controllers/WhatsAppController.php)
+- Configuration: [config/whatsapp.php](mdc:config/whatsapp.php)
+
+## Mobile Email Testing
+- Test email forms on mobile devices
+- Ensure proper CSRF token handling on mobile
+- Test email delivery from mobile submissions
+- Verify email formatting on mobile email clients
+- Handle mobile-specific form submission issues
+
+## Email Best Practices
+- Use proper email headers and metadata
+- Implement email tracking and analytics
+- Handle email bounces and failures
+- Use proper email authentication (SPF, DKIM, DMARC)
+- Follow email marketing best practices and regulations
+
+## Integration Testing
+- Test email sending from quote forms
+- Test email sending from contact forms
+- Verify WhatsApp integration functionality
+- Test mobile-specific email and WhatsApp features
+- Monitor email delivery rates and success
+description:
+globs:
+alwaysApply: true
+---

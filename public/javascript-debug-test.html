@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Loading Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Loading Debug Test</h1>
+    <p>This page tests different methods of loading the problematic JavaScript file to identify the issue.</p>
+    
+    <div class="test-section info">
+        <h3>Test Information</h3>
+        <p><strong>Target File:</strong> <code>https://melbourneprinthub.com.au/build/assets/app-GIQoBvXJ.js</code></p>
+        <p><strong>File Size:</strong> <span id="file-size">Loading...</span></p>
+        <p><strong>Content Type:</strong> <span id="content-type">Loading...</span></p>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 1: Direct Fetch Request</h3>
+        <button onclick="testDirectFetch()">Test Direct Fetch</button>
+        <div id="fetch-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 2: Script Element Loading</h3>
+        <button onclick="testScriptElement()">Test Script Element</button>
+        <div id="script-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 3: Dynamic Import</h3>
+        <button onclick="testDynamicImport()">Test Dynamic Import</button>
+        <div id="import-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 4: Network Timing Analysis</h3>
+        <button onclick="testNetworkTiming()">Test Network Timing</button>
+        <div id="timing-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 5: Browser Compatibility</h3>
+        <button onclick="testBrowserCompatibility()">Test Browser Compatibility</button>
+        <div id="compatibility-result"></div>
+    </div>
+
+    <script>
+        const targetUrl = 'https://melbourneprinthub.com.au/build/assets/app-GIQoBvXJ.js';
+        
+        // Initialize page
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch(targetUrl, { method: 'HEAD' });
+                document.getElementById('file-size').textContent = response.headers.get('content-length') + ' bytes';
+                document.getElementById('content-type').textContent = response.headers.get('content-type');
+            } catch (error) {
+                document.getElementById('file-size').textContent = 'Error loading file info';
+                document.getElementById('content-type').textContent = 'Error loading file info';
+            }
+        });
+
+        async function testDirectFetch() {
+            const resultDiv = document.getElementById('fetch-result');
+            resultDiv.innerHTML = '<p>Testing direct fetch...</p>';
+            
+            try {
+                const startTime = performance.now();
+                const response = await fetch(targetUrl);
+                const endTime = performance.now();
+                
+                if (response.ok) {
+                    const content = await response.text();
+                    const duration = endTime - startTime;
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ Fetch Successful</h4>
+                            <p><strong>Status:</strong> ${response.status} ${response.statusText}</p>
+                            <p><strong>Duration:</strong> ${duration.toFixed(2)}ms</p>
+                            <p><strong>Content Length:</strong> ${content.length} characters</p>
+                            <p><strong>First 100 chars:</strong> <code>${content.substring(0, 100)}...</code></p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <h4>❌ Fetch Failed</h4>
+                            <p><strong>Status:</strong> ${response.status} ${response.statusText}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Fetch Error</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Type:</strong> ${error.name}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function testScriptElement() {
+            const resultDiv = document.getElementById('script-result');
+            resultDiv.innerHTML = '<p>Testing script element loading...</p>';
+            
+            const script = document.createElement('script');
+            script.src = targetUrl;
+            script.type = 'text/javascript';
+            
+            const startTime = performance.now();
+            
+            script.onload = () => {
+                const endTime = performance.now();
+                const duration = endTime - startTime;
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h4>✅ Script Loaded Successfully</h4>
+                        <p><strong>Duration:</strong> ${duration.toFixed(2)}ms</p>
+                        <p><strong>Script executed without errors</strong></p>
+                    </div>
+                `;
+                document.head.removeChild(script);
+            };
+            
+            script.onerror = (error) => {
+                const endTime = performance.now();
+                const duration = endTime - startTime;
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Script Loading Failed</h4>
+                        <p><strong>Duration:</strong> ${duration.toFixed(2)}ms</p>
+                        <p><strong>Error:</strong> Script failed to load</p>
+                    </div>
+                `;
+                document.head.removeChild(script);
+            };
+            
+            document.head.appendChild(script);
+        }
+
+        async function testDynamicImport() {
+            const resultDiv = document.getElementById('import-result');
+            resultDiv.innerHTML = '<p>Testing dynamic import...</p>';
+            
+            try {
+                const startTime = performance.now();
+                const module = await import(targetUrl);
+                const endTime = performance.now();
+                const duration = endTime - startTime;
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h4>✅ Dynamic Import Successful</h4>
+                        <p><strong>Duration:</strong> ${duration.toFixed(2)}ms</p>
+                        <p><strong>Module loaded:</strong> ${typeof module}</p>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Dynamic Import Failed</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Type:</strong> ${error.name}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testNetworkTiming() {
+            const resultDiv = document.getElementById('timing-result');
+            resultDiv.innerHTML = '<p>Testing network timing...</p>';
+            
+            try {
+                const startTime = performance.now();
+                const response = await fetch(targetUrl);
+                const endTime = performance.now();
+                
+                const timing = {
+                    total: endTime - startTime,
+                    status: response.status,
+                    headers: Object.fromEntries(response.headers.entries())
+                };
+                
+                resultDiv.innerHTML = `
+                    <div class="info">
+                        <h4>📊 Network Timing Results</h4>
+                        <pre>${JSON.stringify(timing, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Network Timing Failed</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function testBrowserCompatibility() {
+            const resultDiv = document.getElementById('compatibility-result');
+            
+            const tests = {
+                'fetch': typeof fetch !== 'undefined',
+                'Promise': typeof Promise !== 'undefined',
+                'async/await': (() => {
+                    try {
+                        eval('async function test() {}');
+                        return true;
+                    } catch {
+                        return false;
+                    }
+                })(),
+                'ES6 Modules': (() => {
+                    try {
+                        eval('import("")');
+                        return true;
+                    } catch {
+                        return false;
+                    }
+                })(),
+                'HTTP/2': navigator.connection && navigator.connection.effectiveType === '4g',
+                'Service Worker': 'serviceWorker' in navigator
+            };
+            
+            const results = Object.entries(tests).map(([feature, supported]) => 
+                `<li><strong>${feature}:</strong> ${supported ? '✅ Supported' : '❌ Not Supported'}</li>`
+            ).join('');
+            
+            resultDiv.innerHTML = `
+                <div class="info">
+                    <h4>🔧 Browser Compatibility</h4>
+                    <ul>${results}</ul>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA Debug Test Page</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <h1>reCAPTCHA Debug Test Page</h1>
+    <p><strong>Current Domain:</strong> <span id="current-domain"></span></p>
+    <p><strong>Site Key:</strong> <span id="site-key">6LcaL7srAAAAAN7mGZv6DCkXvnZhkIrp1fRsh1Z1</span></p>
+    
+    <div id="recaptcha-container"></div>
+    
+    <button onclick="testRecaptcha()">Test reCAPTCHA</button>
+    <button onclick="checkDomain()">Check Domain</button>
+    <div id="result"></div>
+    <div id="debug-info"></div>
+
+    <script>
+        // Show current domain
+        document.getElementById('current-domain').textContent = window.location.hostname;
+        
+        function checkDomain() {
+            const debugDiv = document.getElementById('debug-info');
+            debugDiv.innerHTML = `
+                <h3>Debug Information:</h3>
+                <p><strong>Hostname:</strong> ${window.location.hostname}</p>
+                <p><strong>Protocol:</strong> ${window.location.protocol}</p>
+                <p><strong>Full URL:</strong> ${window.location.href}</p>
+                <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+                <p><strong>reCAPTCHA Loaded:</strong> ${typeof grecaptcha !== 'undefined' ? 'Yes' : 'No'}</p>
+                <p><strong>Script URL:</strong> ${document.querySelector('script[src*="recaptcha"]')?.src || 'Not found'}</p>
+            `;
+        }
+        
+        function testRecaptcha() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing reCAPTCHA...</p>';
+            
+            // Check if reCAPTCHA is loaded
+            if (typeof grecaptcha === 'undefined') {
+                resultDiv.innerHTML = '<p style="color: red;">❌ reCAPTCHA script not loaded</p>';
+                return;
+            }
+            
+            // Check if grecaptcha.ready is available
+            if (typeof grecaptcha.ready !== 'function') {
+                resultDiv.innerHTML = '<p style="color: red;">❌ grecaptcha.ready not available</p>';
+                return;
+            }
+            
+            grecaptcha.ready(function() {
+                console.log('reCAPTCHA ready, executing...');
+                
+                grecaptcha.execute('6LcaL7srAAAAAN7mGZv6DCkXvnZhkIrp1fRsh1Z1', {action: 'test'})
+                    .then(function(token) {
+                        console.log('reCAPTCHA success:', token);
+                        resultDiv.innerHTML = `
+                            <p style="color: green;">✅ reCAPTCHA working!</p>
+                            <p><strong>Token:</strong> ${token.substring(0, 20)}...</p>
+                            <p><strong>Token Length:</strong> ${token.length}</p>
+                        `;
+                    })
+                    .catch(function(error) {
+                        console.error('reCAPTCHA error:', error);
+                        resultDiv.innerHTML = `
+                            <p style="color: red;">❌ reCAPTCHA error:</p>
+                            <p><strong>Error:</strong> ${error}</p>
+                            <p><strong>Error Type:</strong> ${typeof error}</p>
+                        `;
+                    });
+            });
+        }
+        
+        // Auto-check domain on page load
+        window.onload = function() {
+            checkDomain();
+            setTimeout(testRecaptcha, 3000);
+        };
+        
+        // Listen for reCAPTCHA script load errors
+        window.addEventListener('error', function(e) {
+            if (e.target.src && e.target.src.includes('recaptcha')) {
+                document.getElementById('result').innerHTML = `
+                    <p style="color: red;">❌ reCAPTCHA script failed to load</p>
+                    <p><strong>Error:</strong> ${e.message}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

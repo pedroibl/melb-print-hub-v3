@@ -1,0 +1,49 @@
+# Laravel PHP Development Standards
+
+## Controller Standards
+- Always use constructor injection for dependencies
+- Use proper type hints for all parameters
+- Return JSON responses for AJAX requests, redirects for regular requests
+- Log important actions with `Log::info()` or `Log::error()`
+- Handle CSRF tokens properly, especially for mobile devices
+
+## Service Standards
+- Use nullable types (`?string`) for optional configuration parameters
+- Implement proper error handling with try-catch blocks
+- Use dependency injection in constructors
+- Follow Laravel naming conventions (PascalCase for classes, camelCase for methods)
+
+## Middleware Standards
+- Always check if session is started before manipulating it
+- Use proper HTTP status codes for responses
+- Implement security headers consistently
+- Handle mobile-specific requirements (session refresh, CSRF tokens)
+
+## Database Standards
+- Use migrations for all database changes
+- Follow Laravel naming conventions for tables and columns
+- Use proper foreign key constraints
+- Implement soft deletes where appropriate
+
+## Configuration Standards
+- Use environment variables for sensitive data
+- Group related configuration in dedicated files
+- Use proper default values for all configuration options
+- Document configuration options in comments
+
+## Error Handling
+- Use Laravel's built-in exception handling
+- Log errors with appropriate context
+- Return user-friendly error messages
+- Use proper HTTP status codes
+
+## Security Practices
+- Always validate and sanitize user input
+- Use CSRF protection on all forms
+- Implement proper session security
+- Use HTTPS in production environments
+- Add security headers (HSTS, CSP, X-Frame-Options, etc.)
+description:
+globs:
+alwaysApply: true
+---

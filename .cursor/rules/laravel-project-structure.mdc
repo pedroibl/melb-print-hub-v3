@@ -1,0 +1,59 @@
+# Laravel Project Structure Guide
+
+## 🏗️ **Project Overview**
+This is a Laravel 12.26.4 application for Melbourne Print Hub, deployed on Heroku with JawsDB MySQL database.
+
+## 📁 **Key Directories & Files**
+
+### **Root Configuration**
+- [composer.json](mdc:composer.json) - PHP dependencies and project metadata
+- [package.json](mdc:package.json) - Node.js dependencies for frontend
+- [Procfile](mdc:Procfile) - Heroku deployment configuration
+- [vercel.json](mdc:vercel.json) - Vercel deployment configuration
+- [.env](mdc:.env) - Environment variables (not in git)
+
+### **Application Core**
+- [app/Http/Controllers/](mdc:app/Http/Controllers/) - All application controllers
+- [app/Models/](mdc:app/Models/) - Eloquent models
+- [app/Http/Middleware/](mdc:app/Http/Middleware/) - Custom middleware
+- [app/Services/](mdc:app/Services/) - Business logic services
+- [app/Jobs/](mdc:app/Jobs/) - Queue jobs for background processing
+
+### **Frontend (React/Inertia)**
+- [resources/js/Pages/](mdc:resources/js/Pages/) - React page components
+- [resources/js/Components/](mdc:resources/js/Components/) - Reusable React components
+- [resources/css/](mdc:resources/css/) - Stylesheets
+- [public/build/](mdc:public/build/) - Compiled frontend assets
+
+### **Database & Migrations**
+- [database/migrations/](mdc:database/migrations/) - Database schema migrations
+- [database/seeders/](mdc:database/seeders/) - Database seeders
+- [database/database.sqlite](mdc:database/database.sqlite) - Local SQLite database
+
+### **Configuration**
+- [config/](mdc:config/) - Laravel configuration files
+- [routes/web.php](mdc:routes/web.php) - Web routes
+- [routes/api.php](mdc:routes/api.php) - API routes
+
+### **Documentation**
+- [docs/](mdc:docs/) - Project documentation and guides
+- [README.md](mdc:README.md) - Project overview
+- [VERCEL-DEPLOYMENT-READY.md](mdc:VERCEL-DEPLOYMENT-READY.md) - Deployment guide
+
+## 🚀 **Deployment Information**
+- **Production URL**: https://www.melbourneprinthub.com.au
+- **Heroku App**: melbourneprinthub
+- **Database**: JawsDB MySQL on Heroku
+- **phpMyAdmin**: Available at /phpmyadmin (with secure authentication)
+
+## 🔧 **Key Features**
+- CSRF token handling with mobile optimization
+- WhatsApp integration for notifications
+- Email system with HTML templates
+- Quote request system
+- Contact form with email notifications
+- Product catalog management
+description:
+globs:
+alwaysApply: true
+---

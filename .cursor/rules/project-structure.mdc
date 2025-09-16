@@ -1,0 +1,56 @@
+# Melbourne Print Hub - Laravel Project Structure
+
+## Core Application Files
+- Main entry point: [public/index.php](mdc:public/index.php)
+- Application bootstrap: [bootstrap/app.php](mdc:bootstrap/app.php)
+- Main routes: [routes/web.php](mdc:routes/web.php)
+- Main layout component: [resources/js/Components/Layout.jsx](mdc:resources/js/Components/Layout.jsx)
+
+## Frontend Structure (React + Inertia.js)
+- Main pages: [resources/js/Pages/](mdc:resources/js/Pages/)
+- React components: [resources/js/Components/](mdc:resources/js/Components/)
+- Main layout: [resources/js/Components/Layout.jsx](mdc:resources/js/Components/Layout.jsx)
+- Quote form: [resources/js/Pages/Quote.jsx](mdc:resources/js/Pages/Quote.jsx)
+- Email testing: [resources/js/Pages/EmailTesting.jsx](mdc:resources/js/Pages/EmailTesting.jsx)
+
+## Backend Structure (Laravel)
+- Controllers: [app/Http/Controllers/](mdc:app/Http/Controllers/)
+- Services: [app/Services/](mdc:app/Services/)
+- Middleware: [app/Http/Middleware/](mdc:app/Http/Middleware/)
+- Email templates: [resources/views/emails/](mdc:resources/views/emails/)
+- Configuration: [config/](mdc:config/)
+
+## Key Services
+- WhatsApp integration: [app/Services/WhatsAppService.php](mdc:app/Services/WhatsAppService.php)
+- WhatsApp API: [app/Services/WhatsAppAPIService.php](mdc:app/Services/WhatsAppAPIService.php)
+- HTML Email service: [app/Services/HtmlEmailService.php](mdc:app/Services/HtmlEmailService.php)
+- Email testing: [app/Services/EmailTestingService.php](mdc:app/Services/EmailTestingService.php)
+
+## Key Controllers
+- Quote handling: [app/Http/Controllers/QuoteController.php](mdc:app/Http/Controllers/QuoteController.php)
+- Contact handling: [app/Http/Controllers/ContactController.php](mdc:app/Http/Controllers/ContactController.php)
+- WhatsApp: [app/Http/Controllers/WhatsAppController.php](mdc:app/Http/Controllers/WhatsAppController.php)
+- Email testing: [app/Http/Controllers/EmailTestingController.php](mdc:app/Http/Controllers/EmailTestingController.php)
+
+## Security & Middleware
+- Mobile session refresh: [app/Http/Middleware/RefreshSessionForMobile.php](mdc:app/Http/Middleware/RefreshSessionForMobile.php)
+- Security headers: [app/Http/Middleware/SecurityHeaders.php](mdc:app/Http/Middleware/SecurityHeaders.php)
+- HTTPS enforcement: [app/Http/Middleware/ForceHttps.php](mdc:app/Http/Middleware/ForceHttps.php)
+
+## Configuration Files
+- WhatsApp config: [config/whatsapp.php](mdc:config/whatsapp.php)
+- Session config: [config/session.php](mdc:config/session.php)
+- Email config: [config/mail.php](mdc:config/mail.php)
+
+## Documentation
+- Getting started: [docs/GETTING-STARTED.md](mdc:docs/GETTING-STARTED.md)
+- Development workflow: [docs/dev-workflow.md](mdc:docs/dev-workflow.md)
+- HTML email system: [docs/HTML-EMAIL-SYSTEM.md](mdc:docs/HTML-EMAIL-SYSTEM.md)
+
+## Server Configuration
+- Apache virtual hosts: [../docs/laravel-vhost.conf](mdc:../docs/laravel-vhost.conf)
+- SSL configuration: [../docs/ssl-config.conf](mdc:../docs/ssl-config.conf)
+description:
+globs:
+alwaysApply: true
+---

@@ -1,0 +1,64 @@
+# Security & SSL Configuration Standards
+
+## SSL Certificate Management
+- Use `mkcert` for local development SSL certificates
+- Generate certificates with proper domain names
+- Install certificates in system trust store
+- Use Let's Encrypt for production environments
+- Renew certificates before expiration
+
+## Apache Configuration
+- Configure virtual hosts for both HTTP (port 80) and HTTPS (port 443)
+- Implement automatic HTTP to HTTPS redirects
+- Use modern SSL cipher suites and protocols
+- Enable security headers at server level
+- Configure proper SSL session handling
+
+## Security Headers Implementation
+- **HSTS**: `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
+- **CSP**: Content Security Policy with proper directives
+- **X-Frame-Options**: `DENY` to prevent clickjacking
+- **X-Content-Type-Options**: `nosniff` to prevent MIME sniffing
+- **X-XSS-Protection**: `1; mode=block` for XSS protection
+- **Referrer-Policy**: `strict-origin-when-cross-origin`
+- **Permissions-Policy**: Restrict sensitive browser features
+
+## Session Security
+- Use secure session configuration (`secure: true`)
+- Implement proper session lifetime (60 minutes)
+- Use `http_only: true` for session cookies
+- Set `same_site: 'strict'` for CSRF protection
+- Regenerate session IDs for mobile devices
+
+## CSRF Protection
+- Always include CSRF tokens in forms
+- Handle CSRF token regeneration for mobile devices
+- Use proper token validation
+- Implement session refresh for mobile sessions
+- Test CSRF protection on both desktop and mobile
+
+## Mobile-Specific Security
+- Implement session refresh middleware for mobile devices
+- Handle CSRF tokens properly on mobile forms
+- Use `SameSite=None` for secure mobile cookies
+- Test security features on both iOS and Android
+- Ensure proper touch handling for security elements
+
+## Testing Security Features
+- Test SSL certificate validity and trust
+- Verify security headers are present
+- Test CSRF protection on all forms
+- Verify HTTP to HTTPS redirects
+- Test mobile-specific security features
+- Use security testing endpoints for validation
+
+## Production Security
+- Use trusted SSL certificates (Let's Encrypt or commercial)
+- Implement proper firewall rules
+- Use HTTPS enforcement in production
+- Monitor security headers and SSL configuration
+- Regular security audits and updates
+description:
+globs:
+alwaysApply: true
+---

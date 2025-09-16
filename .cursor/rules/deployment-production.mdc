@@ -1,0 +1,100 @@
+# Deployment & Production Management
+
+## 🚀 **Heroku Deployment**
+
+### **Current Setup**
+- **App Name**: melbourneprinthub
+- **URL**: https://www.melbourneprinthub.com.au
+- **Database**: JawsDB MySQL on Heroku
+- **Buildpack**: heroku/php
+
+### **Deployment Commands**
+```bash
+# Build frontend assets
+npm run build
+
+# Commit changes
+git add .
+git commit -m "Your commit message"
+
+# Deploy to Heroku
+git push heroku main
+
+# Run migrations
+heroku run php artisan migrate
+
+# Check logs
+heroku logs --num 20
+```
+
+### **Environment Configuration**
+- [Procfile](mdc:Procfile) - Defines web and worker processes
+- [composer.json](mdc:composer.json) - PHP dependencies
+- [package.json](mdc:package.json) - Node.js dependencies
+- Environment variables managed through Heroku dashboard
+
+## 🗄️ **Database Management**
+
+### **Production Database**
+- **Type**: JawsDB MySQL
+- **Host**: e11wl4mksauxgu1w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
+- **Database**: pial0xlk7wore30t
+- **User**: vetdn5o1nme97t9h
+
+### **phpMyAdmin Access**
+- **URL**: https://www.melbourneprinthub.com.au/phpmyadmin/
+- **Authentication**: Config-based (no login required)
+- **Security**: SSL enabled, production settings
+
+### **Database Operations**
+```bash
+# Connect to production database
+heroku run php artisan tinker
+
+# Run migrations
+heroku run php artisan migrate
+
+# Seed database
+heroku run php artisan db:seed
+
+# Backup database
+heroku pg:backups:capture
+```
+
+## 🔧 **Production Configuration**
+
+### **Key Files**
+- [config/session.php](mdc:config/session.php) - Session configuration
+- [config/mail.php](mdc:config/mail.php) - Email configuration
+- [config/whatsapp.php](mdc:config/whatsapp.php) - WhatsApp API settings
+- [app/Http/Middleware/RefreshSessionForMobile.php](mdc:app/Http/Middleware/RefreshSessionForMobile.php) - Mobile session handling
+
+### **Security Settings**
+- CSRF token protection enabled
+- Session lifetime: 120 minutes
+- SameSite cookies: lax
+- SSL/TLS encryption
+- Security headers implemented
+
+## 📊 **Monitoring & Maintenance**
+
+### **Health Checks**
+- [public/db-test.php](mdc:public/db-test.php) - Database connection test
+- [public/debug.php](mdc:public/debug.php) - Debug information
+- Heroku metrics and logs
+
+### **Performance Optimization**
+- Frontend assets compiled and optimized
+- Database queries optimized
+- Caching implemented
+- Queue system for background jobs
+
+### **Backup Strategy**
+- Database backups via Heroku
+- Code version control via Git
+- Environment configuration documented
+- Deployment rollback procedures
+description:
+globs:
+alwaysApply: true
+---

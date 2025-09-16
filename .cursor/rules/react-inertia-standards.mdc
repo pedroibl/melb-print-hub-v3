@@ -1,0 +1,63 @@
+# React/Inertia Frontend Standards
+
+## 🎯 **React/Inertia Best Practices**
+
+### **Component Structure**
+- Use functional components with hooks
+- Keep components small and focused
+- Use proper prop types and validation
+- Implement proper error boundaries
+- Use React.memo for performance optimization
+
+### **File Organization**
+- Pages in [resources/js/Pages/](mdc:resources/js/Pages/)
+- Components in [resources/js/Components/](mdc:resources/js/Components/)
+- Use PascalCase for component names
+- Use camelCase for file names
+- Group related components together
+
+### **Inertia.js Integration**
+- Use Inertia's `useForm` hook for form handling
+- Implement proper CSRF token handling
+- Use Inertia's navigation methods
+- Handle loading states properly
+- Implement proper error handling
+
+### **Styling**
+- Use Tailwind CSS for styling
+- Follow mobile-first responsive design
+- Use consistent color schemes and spacing
+- Implement proper accessibility features
+- Use CSS modules or styled-components when needed
+
+### **State Management**
+- Use React hooks for local state
+- Use Inertia's shared data for global state
+- Implement proper state updates
+- Use context API for complex state sharing
+- Avoid prop drilling
+
+### **Performance**
+- Use React.lazy for code splitting
+- Implement proper memoization
+- Optimize re-renders
+- Use proper key props for lists
+- Implement proper loading states
+
+### **Accessibility**
+- Use semantic HTML elements
+- Implement proper ARIA labels
+- Ensure keyboard navigation
+- Use proper color contrast
+- Test with screen readers
+
+### **Testing**
+- Write unit tests for components
+- Test user interactions
+- Implement proper error handling tests
+- Use React Testing Library
+- Test accessibility features
+description:
+globs:
+alwaysApply: true
+---

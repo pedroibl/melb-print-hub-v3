@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final reCAPTCHA Test</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <h1>Final reCAPTCHA Test</h1>
+    <p><strong>Domain:</strong> <span id="domain"></span></p>
+    <p><strong>Site Key:</strong> <span id="sitekey">6LcaL7srAAAAAN7mGZv6DCkXvnZhkIrp1fRsh1Z1</span></p>
+    <p><strong>Status:</strong> <span id="status">Testing...</span></p>
+    
+    <button onclick="testRecaptcha()">Test reCAPTCHA</button>
+    <button onclick="testForms()">Test Forms</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('domain').textContent = window.location.hostname;
+        
+        function testRecaptcha() {
+            const resultDiv = document.getElementById('result');
+            const statusSpan = document.getElementById('status');
+            
+            resultDiv.innerHTML = '<p>Testing reCAPTCHA...</p>';
+            statusSpan.textContent = 'Testing...';
+            
+            if (typeof grecaptcha === 'undefined') {
+                resultDiv.innerHTML = '<p style="color: red;">❌ reCAPTCHA not loaded</p>';
+                statusSpan.textContent = 'Failed - Script not loaded';
+                return;
+            }
+            
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LcaL7srAAAAAN7mGZv6DCkXvnZhkIrp1fRsh1Z1', {action: 'test'})
+                    .then(function(token) {
+                        resultDiv.innerHTML = `
+                            <p style="color: green;">✅ reCAPTCHA Working!</p>
+                            <p><strong>Token:</strong> ${token.substring(0, 20)}...</p>
+                            <p><strong>Length:</strong> ${token.length}</p>
+                        `;
+                        statusSpan.textContent = 'Success';
+                    })
+                    .catch(function(error) {
+                        resultDiv.innerHTML = `
+                            <p style="color: red;">❌ reCAPTCHA Error:</p>
+                            <p><strong>Error:</strong> ${error}</p>
+                        `;
+                        statusSpan.textContent = 'Failed';
+                    });
+            });
+        }
+        
+        function testForms() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h3>Form Test Links:</h3>
+                <p><a href="https://melbourneprinthub.com.au/get-quote" target="_blank">Quote Form</a></p>
+                <p><a href="https://melbourneprinthub.com.au/contact" target="_blank">Contact Form</a></p>
+            `;
+        }
+        
+        // Auto-test on load
+        window.onload = function() {
+            setTimeout(testRecaptcha, 2000);
+        };
+    </script>
+</body>
+</html>

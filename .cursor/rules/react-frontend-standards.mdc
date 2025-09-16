@@ -1,0 +1,60 @@
+# React + Inertia.js Frontend Standards
+
+## Component Standards
+- Use functional components with hooks
+- Use proper prop types and default props
+- Implement error boundaries for critical components
+- Use semantic HTML elements
+- Follow React naming conventions (PascalCase for components)
+
+## Inertia.js Standards
+- Use `useForm` hook for form handling
+- Handle both JSON and redirect responses appropriately
+- Pass CSRF tokens explicitly as props when needed
+- Use proper error handling for form submissions
+- Implement loading states for better UX
+
+## State Management
+- Use React hooks for local state (`useState`, `useEffect`)
+- Avoid prop drilling by using context when needed
+- Keep state as close to where it's used as possible
+- Use proper state initialization
+
+## Form Handling
+- Always handle form submission errors gracefully
+- Show success messages after successful submissions
+- Implement proper validation feedback
+- Use controlled components for form inputs
+- Handle both AJAX and regular form submissions
+
+## Mobile Responsiveness
+- Use Tailwind CSS classes for responsive design
+- Test on both desktop and mobile devices
+- Ensure touch targets are properly sized (minimum 44px)
+- Use proper z-index values for overlapping elements
+- Implement proper touch handling (`touch-action: manipulation`)
+
+## Performance
+- Use React.memo for expensive components
+- Implement proper key props for lists
+- Avoid unnecessary re-renders
+- Use lazy loading for large components
+- Optimize bundle size with proper imports
+
+## Accessibility
+- Use proper ARIA labels and roles
+- Ensure keyboard navigation works
+- Provide proper focus management
+- Use semantic HTML elements
+- Test with screen readers
+
+## WhatsApp Integration
+- Use direct `wa.me` links for simple chat opening
+- Implement proper mobile button positioning (sticky footer)
+- Ensure buttons are clickable on mobile devices
+- Use proper z-index for floating elements
+- Test WhatsApp links on both iOS and Android
+description:
+globs:
+alwaysApply: true
+---

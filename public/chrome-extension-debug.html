@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Extension Debug Test</title>
+</head>
+<body>
+    <h1>Chrome Extension Debug Test</h1>
+    <p>This page will help identify the source of chrome-extension://invalid/ errors.</p>
+    
+    <div id="debug-info">
+        <h2>Debug Information</h2>
+        <div id="network-requests"></div>
+        <div id="scripts-loaded"></div>
+    </div>
+    
+    <script>
+        // Monitor network requests
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            const url = args[0];
+            if (typeof url === 'string' && url.includes('chrome-extension')) {
+                console.error('🚨 Chrome Extension Request:', url);
+                document.getElementById('network-requests').innerHTML += 
+                    `<p style="color: red;">🚨 Chrome Extension Request: ${url}</p>`;
+            }
+            return originalFetch.apply(this, args);
+        };
+        
+        // Monitor script loading
+        const originalCreateElement = document.createElement;
+        document.createElement = function(tagName) {
+            const element = originalCreateElement.call(this, tagName);
+            if (tagName.toLowerCase() === 'script') {
+                const originalSetAttribute = element.setAttribute;
+                element.setAttribute = function(name, value) {
+                    if (name === 'src' && value.includes('chrome-extension')) {
+                        console.error('🚨 Chrome Extension Script:', value);
+                        document.getElementById('scripts-loaded').innerHTML += 
+                            `<p style="color: red;">🚨 Chrome Extension Script: ${value}</p>`;
+                    }
+                    return originalSetAttribute.call(this, name, value);
+                };
+            }
+            return element;
+        };
+        
+        // List all loaded scripts
+        window.addEventListener('load', function() {
+            const scripts = document.querySelectorAll('script[src]');
+            console.log('📋 All loaded scripts:');
+            scripts.forEach(script => {
+                console.log('Script:', script.src);
+                if (script.src.includes('chrome-extension')) {
+                    document.getElementById('scripts-loaded').innerHTML += 
+                        `<p style="color: red;">🚨 Chrome Extension Script Found: ${script.src}</p>`;
+                }
+            });
+        });
+        
+        console.log('🔍 Chrome Extension Debug Test Active');
+    </script>
+</body>
+</html>

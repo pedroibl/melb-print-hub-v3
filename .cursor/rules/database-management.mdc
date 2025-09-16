@@ -1,0 +1,120 @@
+# Database Management & phpMyAdmin
+
+## 🗄️ **Production Database Configuration**
+
+### **JawsDB MySQL Setup**
+- **Host**: e11wl4mksauxgu1w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
+- **Port**: 3306
+- **Database**: pial0xlk7wore30t
+- **User**: vetdn5o1nme97t9h
+- **SSL**: Enabled for secure connections
+
+### **Database Tables**
+- `products` - Product catalog (13 records)
+- `quote_requests` - Customer quote requests (17 records)
+- `contact_messages` - Contact form submissions (12 records)
+- `customers` - Customer information
+- `orders` - Order management
+- `order_items` - Order line items
+- `failed_jobs` - Failed queue jobs
+- `jobs` - Queue jobs
+- `migrations` - Database migrations
+
+## 🔧 **phpMyAdmin Configuration**
+
+### **Access Information**
+- **URL**: https://www.melbourneprinthub.com.au/phpmyadmin/
+- **Authentication**: Config-based (no login required)
+- **Version**: phpMyAdmin 5.2.2
+- **Security**: SSL enabled, production settings
+
+### **Configuration File**
+- [public/phpmyadmin/config.inc.php](mdc:public/phpmyadmin/config.inc.php) - Main configuration
+- **Blowfish Secret**: melbourneprinthub2025secretkey32bytes!
+- **Session Lifetime**: 24 hours
+- **Error Reporting**: Disabled for production
+
+### **Security Settings**
+- SSL connection required
+- Database drop protection enabled
+- Confirmation dialogs enabled
+- Binary field protection enabled
+- Query history disabled
+
+## 🛠️ **Database Operations**
+
+### **Laravel Commands**
+```bash
+# Run migrations
+php artisan migrate
+
+# Rollback migrations
+php artisan migrate:rollback
+
+# Seed database
+php artisan db:seed
+
+# Reset database
+php artisan migrate:fresh --seed
+
+# Create new migration
+php artisan make:migration create_table_name
+```
+
+### **Heroku Database Commands**
+```bash
+# Connect to production database
+heroku run php artisan tinker
+
+# Run migrations on production
+heroku run php artisan migrate
+
+# Backup database
+heroku pg:backups:capture
+
+# Download backup
+heroku pg:backups:download
+```
+
+### **Database Testing**
+- [public/db-test.php](mdc:public/db-test.php) - Database connection test
+- Tests connection, shows table info, displays sample data
+- Accessible at: https://www.melbourneprinthub.com.au/db-test.php
+
+## 📊 **Database Models**
+
+### **Key Models**
+- [app/Models/Product.php](mdc:app/Models/Product.php) - Product management
+- [app/Models/QuoteRequest.php](mdc:app/Models/QuoteRequest.php) - Quote requests
+- [app/Models/ContactMessage.php](mdc:app/Models/ContactMessage.php) - Contact messages
+- [app/Models/User.php](mdc:app/Models/User.php) - User management
+
+### **Relationships**
+- Products have categories and pricing
+- Quote requests link to products and customers
+- Contact messages store customer inquiries
+- Users manage the system
+
+## 🔍 **Monitoring & Maintenance**
+
+### **Health Checks**
+- Regular database connection tests
+- Monitor query performance
+- Check for failed jobs
+- Monitor storage usage
+
+### **Backup Strategy**
+- Automated Heroku backups
+- Manual exports via phpMyAdmin
+- Version control for migrations
+- Document schema changes
+
+### **Performance Optimization**
+- Proper database indexing
+- Optimized queries
+- Connection pooling
+- Query caching
+description:
+globs:
+alwaysApply: true
+---

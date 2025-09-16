@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Test</title>
+</head>
+<body>
+    <h1>Domain Test</h1>
+    <p><strong>Current Domain:</strong> <span id="domain"></span></p>
+    <p><strong>Full URL:</strong> <span id="url"></span></p>
+    <p><strong>Protocol:</strong> <span id="protocol"></span></p>
+    
+    <script>
+        document.getElementById('domain').textContent = window.location.hostname;
+        document.getElementById('url').textContent = window.location.href;
+        document.getElementById('protocol').textContent = window.location.protocol;
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Loading Test</title>
+</head>
+<body>
+    <h1>JavaScript Loading Test</h1>
+    <p>This page will test if the JavaScript file loads correctly.</p>
+    
+    <div id="test-results">
+        <h2>Test Results</h2>
+        <div id="js-test"></div>
+        <div id="network-test"></div>
+    </div>
+    
+    <script>
+        // Test 1: Direct fetch of the JavaScript file
+        async function testJavaScriptFetch() {
+            const url = 'https://melbourneprinthub.com.au/build/assets/app-GIQoBvXJ.js';
+            
+            try {
+                console.log('🔍 Testing JavaScript fetch:', url);
+                
+                const response = await fetch(url);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response headers:', response.headers);
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    console.log('📄 Content length:', text.length);
+                    console.log('📄 First 100 chars:', text.substring(0, 100));
+                    
+                    document.getElementById('js-test').innerHTML = 
+                        `<div style="color: green; background: #e6ffe6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>✅ JavaScript Fetch Successful</strong><br>
+                            Status: ${response.status}<br>
+                            Content Length: ${text.length} characters<br>
+                            Content Type: ${response.headers.get('content-type')}
+                        </div>`;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                console.error('❌ JavaScript fetch failed:', error);
+                document.getElementById('js-test').innerHTML = 
+                    `<div style="color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <strong>❌ JavaScript Fetch Failed</strong><br>
+                        Error: ${error.message}<br>
+                        URL: ${url}
+                    </div>`;
+            }
+        }
+        
+        // Test 2: Create script element and load
+        function testScriptElement() {
+            const url = 'https://melbourneprinthub.com.au/build/assets/app-GIQoBvXJ.js';
+            
+            console.log('🔍 Testing script element creation:', url);
+            
+            const script = document.createElement('script');
+            script.src = url;
+            script.type = 'text/javascript';
+            
+            script.onload = function() {
+                console.log('✅ Script loaded successfully');
+                document.getElementById('network-test').innerHTML += 
+                    `<div style="color: green; background: #e6ffe6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <strong>✅ Script Element Load Successful</strong><br>
+                        URL: ${url}
+                    </div>`;
+            };
+            
+            script.onerror = function(error) {
+                console.error('❌ Script load failed:', error);
+                document.getElementById('network-test').innerHTML += 
+                    `<div style="color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <strong>❌ Script Element Load Failed</strong><br>
+                        Error: ${error}<br>
+                        URL: ${url}
+                    </div>`;
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // Test 3: Check network timing
+        function testNetworkTiming() {
+            const url = 'https://melbourneprinthub.com.au/build/assets/app-GIQoBvXJ.js';
+            
+            console.log('🔍 Testing network timing:', url);
+            
+            const startTime = performance.now();
+            
+            fetch(url)
+                .then(response => {
+                    const endTime = performance.now();
+                    const duration = endTime - startTime;
+                    
+                    console.log('⏱️ Network timing:', duration + 'ms');
+                    
+                    document.getElementById('network-test').innerHTML += 
+                        `<div style="color: blue; background: #e6f3ff; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>⏱️ Network Timing</strong><br>
+                            Duration: ${duration.toFixed(2)}ms<br>
+                            Status: ${response.status}
+                        </div>`;
+                })
+                .catch(error => {
+                    const endTime = performance.now();
+                    const duration = endTime - startTime;
+                    
+                    console.error('❌ Network timing test failed:', error);
+                    document.getElementById('network-test').innerHTML += 
+                        `<div style="color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>❌ Network Timing Failed</strong><br>
+                            Duration: ${duration.toFixed(2)}ms<br>
+                            Error: ${error.message}
+                        </div>`;
+                });
+        }
+        
+        // Run all tests
+        window.addEventListener('load', function() {
+            console.log('🚀 Starting JavaScript loading tests...');
+            
+            // Run tests with delays to avoid overwhelming
+            setTimeout(testJavaScriptFetch, 100);
+            setTimeout(testScriptElement, 500);
+            setTimeout(testNetworkTiming, 1000);
+        });
+        
+        // Monitor for any errors
+        window.addEventListener('error', function(event) {
+            console.error('🚨 Global error detected:', event);
+            document.getElementById('test-results').innerHTML += 
+                `<div style="color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                    <strong>🚨 Global Error</strong><br>
+                    Message: ${event.message}<br>
+                    File: ${event.filename}<br>
+                    Line: ${event.lineno}
+                </div>`;
+        });
+        
+        console.log('🔍 JavaScript Loading Test Page Ready');
+    </script>
+</body>
+</html>

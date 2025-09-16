@@ -1,0 +1,69 @@
+# Development Workflow & Git Standards
+
+## Issue Management
+- Use GitHub Issues for feature requests and bug reports
+- Follow the naming convention: `issue-{number}-{description}`
+- Create detailed issue descriptions with acceptance criteria
+- Use labels to categorize issues (feature, bug, enhancement, etc.)
+- Reference issues in commit messages and pull requests
+
+## Branch Management
+- Create feature branches from main: `git switch -c issue-{number}-{description}`
+- Use descriptive branch names that match issue titles
+- Keep branches focused on single features or fixes
+- Delete branches after successful merge
+
+## Commit Standards
+- Use conventional commit format: `type(scope): description`
+- Types: feat, fix, docs, style, refactor, test, chore
+- Write descriptive commit messages
+- Reference issue numbers in commit messages
+- Keep commits atomic and focused
+
+## Pull Request Process
+- Create pull requests for all changes
+- Use descriptive PR titles that match issue titles
+- Write detailed PR descriptions with implementation details
+- Include testing instructions and screenshots
+- Request reviews from team members
+- Update PR description with final status
+
+## Testing Requirements
+- Test features on both desktop and mobile platforms
+- Verify functionality across different browsers
+- Test email sending and WhatsApp integration
+- Verify security features (SSL, CSRF, headers)
+- Include testing results in PR descriptions
+
+## Code Review Standards
+- Review code for security vulnerabilities
+- Check for proper error handling
+- Verify mobile responsiveness
+- Ensure proper documentation
+- Test functionality before approval
+
+## Deployment Process
+- Test in development environment first
+- Verify SSL certificate and security headers
+- Test email functionality and WhatsApp integration
+- Monitor for errors after deployment
+- Update documentation as needed
+
+## Documentation Standards
+- Update relevant documentation files
+- Include setup instructions for new features
+- Document configuration changes
+- Maintain changelog of significant changes
+- Keep README files up to date
+
+## Quality Assurance
+- Run tests before committing
+- Check for linting errors
+- Verify mobile compatibility
+- Test security features
+- Ensure proper error handling
+- Validate email templates and WhatsApp integration
+description:
+globs:
+alwaysApply: true
+---

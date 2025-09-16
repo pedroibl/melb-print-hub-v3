@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Extension Specific Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .error { color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .info { color: blue; background: #e6f3ff; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { color: green; background: #e6ffe6; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Chrome Extension Debug Tool</h1>
+    <p>This tool will help identify the Chrome extension causing the dynamic import error.</p>
+    
+    <div id="debug-results">
+        <h2>Debug Results</h2>
+        <div id="extension-info"></div>
+        <div id="import-errors"></div>
+        <div id="network-requests"></div>
+    </div>
+    
+    <script>
+        // Store debug information
+        const debugInfo = {
+            extensionRequests: [],
+            importErrors: [],
+            scripts: [],
+            networkErrors: []
+        };
+        
+        // Monitor dynamic imports
+        const originalImport = window.import;
+        if (originalImport) {
+            window.import = function(modulePath) {
+                console.log('📦 Dynamic import attempted:', modulePath);
+                debugInfo.importErrors.push({
+                    type: 'dynamic_import',
+                    path: modulePath,
+                    timestamp: new Date().toISOString()
+                });
+                
+                if (typeof modulePath === 'string' && modulePath.includes('chrome-extension')) {
+                    console.error('🚨 Chrome Extension Dynamic Import:', modulePath);
+                    document.getElementById('import-errors').innerHTML += 
+                        `<div class="error">
+                            <strong>🚨 Chrome Extension Dynamic Import Detected:</strong><br>
+                            Path: ${modulePath}<br>
+                            Time: ${new Date().toLocaleTimeString()}
+                        </div>`;
+                }
+                
+                return originalImport.call(this, modulePath);
+            };
+        }
+        
+        // Monitor fetch requests
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            const url = args[0];
+            if (typeof url === 'string' && url.includes('chrome-extension')) {
+                console.error('🚨 Chrome Extension Fetch Request:', url);
+                debugInfo.extensionRequests.push({
+                    type: 'fetch',
+                    url: url,
+                    timestamp: new Date().toISOString()
+                });
+                
+                document.getElementById('network-requests').innerHTML += 
+                    `<div class="error">
+                        <strong>🚨 Chrome Extension Fetch Request:</strong><br>
+                        URL: ${url}<br>
+                        Time: ${new Date().toLocaleTimeString()}
+                    </div>`;
+            }
+            return originalFetch.apply(this, args);
+        };
+        
+        // Monitor XMLHttpRequest
+        const originalXHROpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function(method, url, ...args) {
+            if (typeof url === 'string' && url.includes('chrome-extension')) {
+                console.error('🚨 Chrome Extension XHR Request:', url);
+                debugInfo.extensionRequests.push({
+                    type: 'xhr',
+                    url: url,
+                    timestamp: new Date().toISOString()
+                });
+                
+                document.getElementById('network-requests').innerHTML += 
+                    `<div class="error">
+                        <strong>🚨 Chrome Extension XHR Request:</strong><br>
+                        URL: ${url}<br>
+                        Time: ${new Date().toLocaleTimeString()}
+                    </div>`;
+            }
+            return originalXHROpen.apply(this, [method, url, ...args]);
+        };
+        
+        // Monitor script loading
+        const originalCreateElement = document.createElement;
+        document.createElement = function(tagName) {
+            const element = originalCreateElement.call(this, tagName);
+            if (tagName.toLowerCase() === 'script') {
+                const originalSetAttribute = element.setAttribute;
+                element.setAttribute = function(name, value) {
+                    if (name === 'src' && value.includes('chrome-extension')) {
+                        console.error('🚨 Chrome Extension Script Loading:', value);
+                        debugInfo.scripts.push({
+                            src: value,
+                            timestamp: new Date().toISOString()
+                        });
+                        
+                        document.getElementById('network-requests').innerHTML += 
+                            `<div class="error">
+                                <strong>🚨 Chrome Extension Script Loading:</strong><br>
+                                Src: ${value}<br>
+                                Time: ${new Date().toLocaleTimeString()}
+                            </div>`;
+                    }
+                    return originalSetAttribute.call(this, name, value);
+                };
+            }
+            return element;
+        };
+        
+        // Monitor error events
+        window.addEventListener('error', function(event) {
+            if (event.message && event.message.includes('chrome-extension')) {
+                console.error('🚨 Chrome Extension Error Event:', event);
+                debugInfo.networkErrors.push({
+                    type: 'error_event',
+                    message: event.message,
+                    filename: event.filename,
+                    timestamp: new Date().toISOString()
+                });
+                
+                document.getElementById('network-requests').innerHTML += 
+                    `<div class="error">
+                        <strong>🚨 Chrome Extension Error Event:</strong><br>
+                        Message: ${event.message}<br>
+                        File: ${event.filename}<br>
+                        Time: ${new Date().toLocaleTimeString()}
+                    </div>`;
+            }
+        });
+        
+        // Monitor unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            if (event.reason && event.reason.toString().includes('chrome-extension')) {
+                console.error('🚨 Chrome Extension Promise Rejection:', event.reason);
+                debugInfo.networkErrors.push({
+                    type: 'promise_rejection',
+                    reason: event.reason.toString(),
+                    timestamp: new Date().toISOString()
+                });
+                
+                document.getElementById('network-requests').innerHTML += 
+                    `<div class="error">
+                        <strong>🚨 Chrome Extension Promise Rejection:</strong><br>
+                        Reason: ${event.reason}<br>
+                        Time: ${new Date().toLocaleTimeString()}
+                    </div>`;
+            }
+        });
+        
+        // List all loaded scripts on page load
+        window.addEventListener('load', function() {
+            const scripts = document.querySelectorAll('script[src]');
+            console.log('📋 All loaded scripts:');
+            
+            document.getElementById('extension-info').innerHTML += 
+                `<div class="info">
+                    <strong>📋 All Loaded Scripts:</strong><br>
+                    <pre>${Array.from(scripts).map(script => script.src).join('\n')}</pre>
+                </div>`;
+            
+            scripts.forEach(script => {
+                if (script.src.includes('chrome-extension')) {
+                    document.getElementById('extension-info').innerHTML += 
+                        `<div class="error">
+                            <strong>🚨 Chrome Extension Script Found:</strong><br>
+                            Src: ${script.src}<br>
+                            Time: ${new Date().toLocaleTimeString()}
+                        </div>`;
+                }
+            });
+        });
+        
+        // Add debug info to window for console access
+        window.debugInfo = debugInfo;
+        
+        console.log('🔍 Chrome Extension Debug Tool Active');
+        console.log('💡 Access debug info via: window.debugInfo');
+        
+        // Show instructions
+        document.getElementById('extension-info').innerHTML += 
+            `<div class="success">
+                <strong>✅ Debug Tool Active</strong><br>
+                Check the console for real-time monitoring.<br>
+                Access debug info via: <code>window.debugInfo</code>
+            </div>`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+# Laravel PHP Development Standards
+
+## 🎯 **PHP/Laravel Best Practices**
+
+### **Code Standards**
+- Use PHP 8.1+ features (typed properties, match expressions)
+- Follow PSR-12 coding standards
+- Use strict typing: `declare(strict_types=1);`
+- Use descriptive variable and method names
+- Prefer dependency injection and service containers
+
+### **Laravel Conventions**
+- Use Eloquent ORM instead of raw SQL queries
+- Implement Repository pattern for data access layer
+- Use Laravel's built-in validation features
+- Implement proper error handling and logging
+- Use Laravel's caching mechanisms for performance
+
+### **File Structure**
+- Use lowercase with dashes for directories
+- Follow Laravel's directory structure conventions
+- Controllers in [app/Http/Controllers/](mdc:app/Http/Controllers/)
+- Models in [app/Models/](mdc:app/Models/)
+- Middleware in [app/Http/Middleware/](mdc:app/Http/Middleware/)
+
+### **Security Practices**
+- Always validate and sanitize user input
+- Use CSRF protection for forms
+- Implement proper authentication and authorization
+- Use Laravel's built-in security features
+- Keep dependencies updated
+
+### **Database Practices**
+- Use migrations for schema changes
+- Implement proper database indexing
+- Use Laravel's query builder for complex queries
+- Implement proper relationships between models
+- Use database transactions for critical operations
+
+### **Error Handling**
+- Use try-catch blocks for expected exceptions
+- Create custom exceptions when necessary
+- Use Laravel's exception handling and logging
+- Implement proper error responses
+
+### **Performance**
+- Use Laravel's caching mechanisms
+- Implement job queues for long-running tasks
+- Use database query optimization
+- Implement proper pagination
+- Use Laravel's built-in performance features
+description:
+globs:
+alwaysApply: true
+---

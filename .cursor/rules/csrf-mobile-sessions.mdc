@@ -1,0 +1,77 @@
+# CSRF Token & Mobile Session Management
+
+## 🔐 **CSRF Token Configuration**
+
+### **Current Implementation**
+- **Session Lifetime**: 120 minutes (increased from 60)
+- **SameSite**: lax (changed from strict for better compatibility)
+- **Expire on Close**: false (disabled for mobile compatibility)
+- **Blowfish Secret**: Configured for secure token generation
+
+### **Key Files**
+- [config/session.php](mdc:config/session.php) - Session configuration
+- [app/Http/Middleware/RefreshSessionForMobile.php](mdc:app/Http/Middleware/RefreshSessionForMobile.php) - Mobile session handling
+- [app/Http/Controllers/QuoteController.php](mdc:app/Http/Controllers/QuoteController.php) - Quote form handling
+- [app/Http/Controllers/ContactController.php](mdc:app/Http/Controllers/ContactController.php) - Contact form handling
+
+### **Mobile Session Middleware**
+The [RefreshSessionForMobile.php](mdc:app/Http/Middleware/RefreshSessionForMobile.php) middleware:
+- Detects mobile devices via user agent
+- Logs mobile requests for debugging
+- Extends session lifetime for mobile devices
+- Handles session regeneration when needed
+- Prevents unnecessary session regeneration
+
+### **Frontend Integration**
+- Inertia.js `useForm` hook automatically handles CSRF tokens
+- React components don't need manual token handling
+- Forms include CSRF tokens automatically
+- Mobile devices get extended session handling
+
+## 🛠️ **Troubleshooting**
+
+### **Common Issues**
+1. **419 CSRF Token Mismatch**
+   - Check session configuration
+   - Verify mobile middleware is working
+   - Check browser cookies and storage
+
+2. **Mobile Session Issues**
+   - Verify user agent detection
+   - Check session lifetime settings
+   - Monitor session regeneration logs
+
+### **Debug Tools**
+- [routes/web.php](mdc:routes/web.php) - Contains debug routes
+- [public/db-test.php](mdc:public/db-test.php) - Database connection test
+- Heroku logs for session debugging
+
+### **Testing Commands**
+```bash
+# Test CSRF token generation
+curl https://www.melbourneprinthub.com.au/debug-csrf
+
+# Test database connection
+curl https://www.melbourneprinthub.com.au/db-test.php
+
+# Check Heroku logs
+heroku logs --num 50 | grep -E "(CSRF|session|mobile)"
+```
+
+## 📱 **Mobile Optimization**
+
+### **Session Handling**
+- Extended session lifetime for mobile devices
+- Reduced session regeneration frequency
+- Better cookie compatibility
+- Improved mobile user experience
+
+### **Performance**
+- Optimized session storage
+- Reduced server load
+- Better mobile responsiveness
+- Improved form submission success rate
+description:
+globs:
+alwaysApply: true
+---

@@ -1,0 +1,93 @@
+# Troubleshooting & Debugging Standards
+
+## Common Issues & Solutions
+
+### CSRF Token Issues (419 | PAGE EXPIRED)
+- **Problem**: Mobile forms returning CSRF token errors
+- **Solution**: Implement `RefreshSessionForMobile` middleware
+- **Files**: [app/Http/Middleware/RefreshSessionForMobile.php](mdc:app/Http/Middleware/RefreshSessionForMobile.php)
+- **Check**: Session configuration in [config/session.php](mdc:config/session.php)
+
+### React Component Rendering Issues
+- **Problem**: Components not rendering in main application
+- **Solution**: Use inline HTML/JS as fallback, check z-index and touch handling
+- **Files**: [resources/js/Components/Layout.jsx](mdc:resources/js/Components/Layout.jsx)
+- **Debug**: Check browser console for JavaScript errors
+
+### SSL Certificate Issues
+- **Problem**: Browser showing "unsafe" SSL warnings
+- **Solution**: Use `mkcert` for local development certificates
+- **Files**: [../docs/laravel-vhost.conf](mdc:../docs/laravel-vhost.conf), [../docs/ssl-config.conf](mdc:../docs/ssl-config.conf)
+- **Test**: Verify certificate trust and HTTP to HTTPS redirects
+
+### Email Sending Issues
+- **Problem**: Emails not sending or formatting incorrectly
+- **Solution**: Use `HtmlEmailService` with proper Blade templates
+- **Files**: [app/Services/HtmlEmailService.php](mdc:app/Services/HtmlEmailService.php)
+- **Test**: Use email testing dashboard at `/email-testing`
+
+### WhatsApp Integration Issues
+- **Problem**: WhatsApp buttons not clickable on mobile
+- **Solution**: Use proper z-index, touch handling, and positioning
+- **Files**: [resources/js/Components/Layout.jsx](mdc:resources/js/Components/Layout.jsx)
+- **Test**: Verify `wa.me` links work on both iOS and Android
+
+## Debugging Tools & Commands
+
+### Laravel Debugging
+```bash
+# Check routes
+php artisan route:list
+
+# Test CSRF tokens
+curl -X POST /test-csrf
+
+# Check session configuration
+php artisan tinker
+
+# View logs
+tail -f storage/logs/laravel.log
+```
+
+### SSL & Security Testing
+```bash
+# Test SSL certificate
+curl -I https://melbourneprinthub.com
+
+# Test HTTP redirect
+curl -I http://melbourneprinthub.com
+
+# Check security headers
+curl -s https://melbourneprinthub.com/security-test | jq .
+```
+
+### Mobile Testing
+- Use `php artisan serve --host=0.0.0.0 --port=8000` for mobile access
+- Test on both iOS and Android devices
+- Verify touch handling and button clickability
+- Check CSRF token handling on mobile forms
+
+## Error Logging Standards
+- Use `Log::info()` for debugging information
+- Use `Log::error()` for error conditions
+- Include context in log messages
+- Log request details for troubleshooting
+- Monitor logs during testing
+
+## Testing Endpoints
+- **Security Test**: `/security-test` - Check security headers
+- **SSL Test**: `/ssl-test` - Verify SSL configuration
+- **CSRF Test**: `/test-csrf` - Test CSRF token handling
+- **Email Test**: `/email-testing` - Test email functionality
+- **Mobile Test**: `/mobile-quote-test` - Test mobile form submission
+
+## Performance Monitoring
+- Monitor page load times
+- Check for JavaScript errors in console
+- Verify email delivery times
+- Monitor SSL certificate expiration
+- Track mobile vs desktop performance
+description:
+globs:
+alwaysApply: true
+---
