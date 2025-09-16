@@ -274,15 +274,23 @@ export default function Quote({ services, phone, email, csrf_token, success, err
     ].join(' ');
 
     return (
-                    <Layout title="Get a Quote" csrf_token={csrf_token}>
+        <Layout
+            title="Request a Printing Quote"
+            csrf_token={csrf_token}
+            meta={{
+                description: 'Request a fast printing quote from Melbourne Print Hub. Tell us about your business card, flyer, brochure, or banner project and receive pricing within two hours.',
+                keywords: 'printing quote melbourne, business card quote melbourne, banner printing quote',
+                canonical: 'https://melbourneprinthub.com.au/get-quote',
+            }}
+        >
             {/* Hero Section */}
             <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Get Your Quote
+                        Printing Quotes Returned Within Two Hours
                     </h1>
                     <p className="text-xl md:text-2xl max-w-3xl mx-auto">
-                        Fast, quotes for all your printing needs
+                        Share your artwork and specs and our Melbourne production team will confirm stock, finishing, pricing, and delivery windows the same business day.
                     </p>
                 </div>
             </section>
@@ -293,10 +301,13 @@ export default function Quote({ services, phone, email, csrf_token, success, err
                     <div className="bg-white rounded-lg shadow-lg p-8">
                         <div className="text-center mb-8">
                             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                                Request Your Quote
+                                Tell Us About Your Project
                             </h2>
                             <p className="text-lg text-gray-600">
-                                Fill out the form below and we'll get back to you soon.
+                                Outline quantities, stock preferences, event dates, and delivery needs. We’ll review your brief, pre-flight artwork, and send through pricing, turnaround options, and artwork feedback if needed.
+                            </p>
+                            <p className="text-base text-gray-500 mt-3">
+                                Tip: Approvals received before 11am qualify for same-day production on select products including business cards, flyers, pull-up banners, and posters.
                             </p>
                         </div>
 

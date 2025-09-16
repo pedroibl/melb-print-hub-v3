@@ -34,7 +34,7 @@ class ContactFormTest extends DuskTestCase
             
             $browser->visit('/contact')
                     ->waitFor('form', 10)
-                    ->assertSee('Contact Us')
+                    ->assertSee('Contact Melbourne Print Hub')
                     ->assertSee('0449 598 440')
                     ->assertSee('info@melbourneprinthub.com.au')
                     ->assertSee('Monday to Friday, 08:00 AM to 06:00 PM');

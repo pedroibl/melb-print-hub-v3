@@ -17,8 +17,62 @@ export default function Services({ services, phone, email, csrf_token }) {
         'Signage & Display': 'Premium signage and display materials for maximum impact'
     };
 
+    const productStructuredData = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: 'Business Cards Printing Melbourne',
+            description: 'High-quality 350gsm artboard business cards with matte or gloss laminate and same-day turnaround in Melbourne.',
+            brand: 'Melbourne Print Hub',
+            url: 'https://melbourneprinthub.com.au/services/business-cards',
+            offers: {
+                '@type': 'Offer',
+                availability: 'https://schema.org/InStock',
+                priceCurrency: 'AUD',
+                price: '49.00',
+            },
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: 'Flyer & Brochure Printing Melbourne',
+            description: 'Premium flyer and brochure printing with full-colour coverage, scored folds, and express delivery across Melbourne.',
+            brand: 'Melbourne Print Hub',
+            url: 'https://melbourneprinthub.com.au/services/flyers-and-brochures',
+            offers: {
+                '@type': 'Offer',
+                availability: 'https://schema.org/InStock',
+                priceCurrency: 'AUD',
+                price: '69.00',
+            },
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: 'Wide Format & Banner Printing Melbourne',
+            description: 'Durable vinyl banners, pull-up banners, and media walls printed with UV stable inks for events and promotions.',
+            brand: 'Melbourne Print Hub',
+            url: 'https://melbourneprinthub.com.au/services/banners',
+            offers: {
+                '@type': 'Offer',
+                availability: 'https://schema.org/InStock',
+                priceCurrency: 'AUD',
+                price: '129.00',
+            },
+        },
+    ];
+
     return (
-        <Layout title="Our Services" csrf_token={csrf_token}>
+        <Layout
+            title="Printing Services in Melbourne"
+            csrf_token={csrf_token}
+            meta={{
+                description: 'Discover Melbourne Print Hub’s full range of printing services including business cards, flyers, brochures, banners, exhibition displays, and same-day printing.',
+                keywords: 'business cards printing melbourne, flyer printing melbourne, brochure printing melbourne, banner printing melbourne, signage melbourne',
+                canonical: 'https://melbourneprinthub.com.au/services',
+                structuredData: productStructuredData,
+            }}
+        >
             {/* Hero Section */}
             <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -26,7 +80,7 @@ export default function Services({ services, phone, email, csrf_token }) {
                         Melbourne's Complete Printing Solutions
                     </h1>
                     <p className="text-xl md:text-2xl max-w-3xl mx-auto">
-                        Professional printing services for every business need - from business cards to large format displays
+                        Professional printing services for every business need—business cards, flyers, brochures, banners, signage, and custom displays produced in Melbourne with quality control and genuine local support.
                     </p>
                     <div className="mt-8">
                         <a 
@@ -35,6 +89,30 @@ export default function Services({ services, phone, email, csrf_token }) {
                         >
                             Get Your Quote Today
                         </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* Service Copy Section */}
+            <section className="py-16 bg-white">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                    <div>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Business Card Printing in Melbourne</h2>
+                        <p className="text-lg text-gray-600">
+                            Put your brand in the right hands with expertly finished business cards. Choose from 350gsm artboard, soft-touch matte laminate, velvet laminate, or recycled stocks. We can spot UV, emboss, or foil your logo, and we check every artwork for bleed, crop marks, and safe zones before going to press. Need it in a hurry? Approve your proof before 11am and collect from Melbourne CBD the same afternoon.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Flyers, Brochures &amp; Direct Mail</h2>
+                        <p className="text-lg text-gray-600">
+                            Promote events, menus, and corporate campaigns with vivid double-sided flyers or folded brochures. We provide 150gsm and 170gsm gloss or satin paper as standard, with heavier 200gsm options for premium finishes. Add score folding, perforations, or direct-mail bundling so your marketing collateral is ready for distribution anywhere in Melbourne.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Large Format Banners &amp; Event Signage</h2>
+                        <p className="text-lg text-gray-600">
+                            Make a statement with outdoor and indoor signage built to withstand Australian conditions. Our vinyl banners, mesh fence wraps, pull-up banners, media walls, corflutes, and A-frame signs are printed with UV-stable inks and finished with reinforced edges, eyelets, or pull-up hardware. We pre-flight panel dimensions and supply install guides for events, markets, and exhibitions across Melbourne.
+                        </p>
                     </div>
                 </div>
             </section>

@@ -2,16 +2,32 @@ import Layout from '@/Components/Layout';
 
 export default function Home({ services, phone, email, csrf_token }) {
     return (
-        <Layout title="Fast, Local Printing Solutions" csrf_token={csrf_token}>
+        <Layout
+            title="Printing Services in Melbourne"
+            csrf_token={csrf_token}
+            meta={{
+                description: 'Melbourne Print Hub delivers fast, high-quality printing services in Melbourne including business cards, flyers, brochures, banners, and signage with same-day options.',
+                keywords: 'printing services melbourne, same-day printing melbourne, business card printing melbourne, flyer printing melbourne, banner printing melbourne',
+                canonical: 'https://melbourneprinthub.com.au/',
+                structuredData: [
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'WebPage',
+                        name: 'Melbourne Print Hub | Printing Services in Melbourne',
+                        description: 'Local Melbourne print specialists offering business cards, flyers, brochures, banners, signage, and express printing services.',
+                        url: 'https://melbourneprinthub.com.au/',
+                    },
+                ],
+            }}
+        >
             {/* Hero Section */}
             <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Fast, Local Printing Solutions
+                        Printing Services in Melbourne That Move as Fast as Your Business
                     </h1>
                     <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        Professional printing services for Melbourne businesses. 
-                        Quick turnaround, competitive pricing, and expert design support.
+                        Melbourne Print Hub helps local businesses create professional marketing material—business cards, flyers, brochures, and banners—with same-day turnaround and expert design advice.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a 
@@ -35,10 +51,10 @@ export default function Home({ services, phone, email, csrf_token }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                            Our Core Services
+                            Melbourne Printing Services for Every Campaign
                         </h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            From business cards to large format printing, we've got you covered
+                            From print collateral for networking events to large format signage for expos, we combine premium stocks, vibrant inks, and fast delivery across metropolitan Melbourne.
                         </p>
                     </div>
 
@@ -84,6 +100,47 @@ export default function Home({ services, phone, email, csrf_token }) {
                         >
                             View All Services
                         </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* Local Advantage Section */}
+            <section className="py-16 bg-white">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-4">Proudly Serving Melbourne Businesses</h2>
+                            <p className="text-lg text-gray-600 mb-4">
+                                We work with cafes on Chapel Street, real estate agencies in Fitzroy, event coordinators in Docklands, and local councils in the CBD. Our production team understands the deadlines and finish requirements that Melbourne businesses rely on.
+                            </p>
+                            <p className="text-lg text-gray-600 mb-4">
+                                Whether you’re launching a pop-up store or preparing for a conference at the Melbourne Convention Centre, our same-day printing and delivery options keep your campaign on track.
+                            </p>
+                            <p className="text-lg text-gray-600">
+                                Every order includes proofing support, stock recommendations, and finishing guidance so your print collateral represents your brand perfectly.
+                            </p>
+                        </div>
+                        <div className="bg-gray-100 rounded-xl p-8 shadow-lg">
+                            <h3 className="text-2xl font-semibold text-gray-900 mb-4">Same-Day Printing Checklist</h3>
+                            <ul className="space-y-3 text-gray-600">
+                                <li className="flex items-start">
+                                    <span className="text-blue-500 font-bold mr-2">•</span>
+                                    Approved artwork received before 11am (PDF with bleed and crop marks)
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-blue-500 font-bold mr-2">•</span>
+                                    Select from our express stocks: 350gsm artboard, 150gsm gloss, or tear-resistant vinyl
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-blue-500 font-bold mr-2">•</span>
+                                    Choose click-and-collect from Melbourne CBD or metro courier delivery
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-blue-500 font-bold mr-2">•</span>
+                                    Receive a production SMS update once your order is in finishing
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -138,8 +195,7 @@ export default function Home({ services, phone, email, csrf_token }) {
                         Ready to Get Started?
                     </h2>
                     <p className="text-xl mb-8 max-w-2xl mx-auto">
-                        Get your professional printing project started today. 
-                        Fast quotes, expert advice, and quality results.
+                        Get a tailored quote back in under 2 hours. Our Melbourne print specialists will confirm artwork requirements, stock recommendations, and delivery timelines with you instantly.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a 
@@ -158,6 +214,9 @@ export default function Home({ services, phone, email, csrf_token }) {
                     <div className="mt-8 text-center">
                         <p className="text-lg">
                             <strong>Call us:</strong> {phone} | <strong>Email:</strong> {email}
+                        </p>
+                        <p className="text-sm mt-2 text-blue-100">
+                            Melbourne Print Hub · 58 Leonard Avenue, Noble Park VIC 3174
                         </p>
                     </div>
                 </div>

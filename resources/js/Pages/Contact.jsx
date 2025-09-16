@@ -127,15 +127,32 @@ export default function Contact({ phone, email, hours, csrf_token, success, erro
 
     return (
         <ContactErrorBoundary>
-            <Layout title="Contact Us" csrf_token={csrf_token}>
+            <Layout
+                title="Contact Melbourne Print Hub"
+                csrf_token={csrf_token}
+                meta={{
+                    description: 'Contact Melbourne Print Hub for quotes, artwork support, and urgent same-day printing in Melbourne. Call 0449 598 440 or visit our CBD location at 58 Leonard Avenue.',
+                    keywords: 'contact melbourne print hub, print shop melbourne contact, same day printing melbourne contact',
+                    canonical: 'https://melbourneprinthub.com.au/contact',
+                    structuredData: [
+                        {
+                            '@context': 'https://schema.org',
+                            '@type': 'ContactPage',
+                            name: 'Contact Melbourne Print Hub',
+                            description: 'Reach the Melbourne Print Hub team to request printing quotes, confirm artwork, and organise same-day pickup or delivery in Melbourne.',
+                            url: 'https://melbourneprinthub.com.au/contact',
+                        },
+                    ],
+                }}
+            >
             {/* Hero Section */}
             <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Contact Us
+                        Contact Melbourne Print Hub
                     </h1>
                     <p className="text-xl md:text-2xl max-w-3xl mx-auto">
-                        Get in touch with our printing experts
+                        Speak directly with local printing specialists for quotes, artwork checks, and delivery timelines.
                     </p>
                 </div>
             </section>
@@ -184,6 +201,21 @@ export default function Contact({ phone, email, hours, csrf_token, success, erro
                                         >
                                             {email}
                                         </a>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start">
+                                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Our Print Studio</h3>
+                                        <p className="text-gray-600">Melbourne Print Hub</p>
+                                        <p className="text-gray-600">58 Leonard Avenue</p>
+                                        <p className="text-gray-600">Noble Park VIC 3174</p>
+                                        <p className="text-sm text-gray-500 mt-2">Ground floor collection with secure loading zone and delivery options across metropolitan Melbourne.</p>
                                     </div>
                                 </div>
 
@@ -366,6 +398,24 @@ export default function Contact({ phone, email, hours, csrf_token, success, erro
                 </div>
             </section>
 
+            {/* Map Section */}
+            <section className="pb-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <iframe
+                            title="Melbourne Print Hub Location"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8433207008346!2d144.96487347647473!3d-37.81562703734348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce470!2sMelbourne%20VIC%203000!5e0!3m2!1sen!2sau!4v1737158400000!5m2!1sen!2sau"
+                            width="100%"
+                            height="360"
+                            style={{ border: 0 }}
+                            allowFullScreen=""
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                        />
+                    </div>
+                </div>
+            </section>
+
             {/* CTA Section */}
             <section className="py-16 bg-blue-600 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -400,6 +450,6 @@ export default function Contact({ phone, email, hours, csrf_token, success, erro
                 </div>
             </section>
         </Layout>
-        </ContactErrorBoundary>
+    </ContactErrorBoundary>
     );
 }

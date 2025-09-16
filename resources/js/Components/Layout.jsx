@@ -1,8 +1,63 @@
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Layout({ children, title, phone = '0449 598 440', email = 'info@melbourneprinthub.com.au', csrf_token }) {
+export default function Layout({
+    children,
+    title,
+    meta = {},
+    phone = '0449 598 440',
+    email = 'info@melbourneprinthub.com.au',
+    csrf_token,
+}) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const {
+        description = 'Fast, high-quality printing services in Melbourne for business cards, flyers, brochures, banners, and signage.',
+        keywords = 'printing services melbourne, business card printing melbourne, flyer printing melbourne, banner printing melbourne',
+        canonical = 'https://melbourneprinthub.com.au',
+        ogImage = 'https://melbourneprinthub.com.au/og-image.jpg',
+        type = 'website',
+        structuredData = [],
+        noindex = false,
+    } = meta;
+
+    const localBusinessSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: 'Melbourne Print Hub',
+        url: 'https://melbourneprinthub.com.au',
+        telephone: phone,
+        email,
+        image: 'https://melbourneprinthub.com.au/images/print-shop.jpg',
+        priceRange: '$$',
+        address: {
+            '@type': 'PostalAddress',
+            streetAddress: '58 Leonard Avenue',
+            addressLocality: 'Noble Park',
+            addressRegion: 'VIC',
+            postalCode: '3174',
+            addressCountry: 'AU',
+        },
+        openingHoursSpecification: [
+            {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: [
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                ],
+                opens: '09:00',
+                closes: '17:30',
+            },
+        ],
+        sameAs: [
+            'https://www.facebook.com/melbourneprinthub',
+            'https://www.instagram.com/melbourneprinthub',
+            'https://www.linkedin.com/company/melbourneprinthub',
+        ],
+    };
 
     return (
         <>
@@ -16,33 +71,43 @@ export default function Layout({ children, title, phone = '0449 598 440', email 
                 <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
                 <meta name="referrer" content="strict-origin-when-cross-origin" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name="robots" content="index, follow" />
+                <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
                 <meta name="author" content="Melbourne Print Hub" />
-                <meta name="description" content="Professional printing services in Melbourne. Fast, local printing solutions for growing businesses." />
-                <meta name="keywords" content="printing, Melbourne, business cards, banners, flyers, signage" />
-                
+                <meta name="description" content={description} />
+                <meta name="keywords" content={keywords} />
+
                 {/* Open Graph Meta Tags */}
                 <meta property="og:title" content={title ? `${title} - Melbourne Print Hub` : 'Melbourne Print Hub'} />
-                <meta property="og:description" content="Professional printing services in Melbourne. Fast, local printing solutions for growing businesses." />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://melbourneprinthub.com.au" />
+                <meta property="og:description" content={description} />
+                <meta property="og:type" content={type} />
+                <meta property="og:url" content={canonical} />
                 <meta property="og:site_name" content="Melbourne Print Hub" />
-                
+                {ogImage && <meta property="og:image" content={ogImage} />}
+
                 {/* Twitter Card Meta Tags */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={title ? `${title} - Melbourne Print Hub` : 'Melbourne Print Hub'} />
-                <meta name="twitter:description" content="Professional printing services in Melbourne. Fast, local printing solutions for growing businesses." />
-                
+                <meta name="twitter:description" content={description} />
+                {ogImage && <meta name="twitter:image" content={ogImage} />}
+
                 {/* Favicon and Icons */}
                 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
                 <link rel="manifest" href="/site.webmanifest" />
-                
+                <link rel="canonical" href={canonical} />
+
                 {/* Preconnect to external domains for performance */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
                 <link rel="preconnect" href="https://unpkg.com" />
+
+                <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+                {structuredData.map((schema, index) => (
+                    <script key={index} type="application/ld+json">
+                        {JSON.stringify(schema)}
+                    </script>
+                ))}
             </Head>
             
             <div className="min-h-screen bg-gray-50">
@@ -293,6 +358,7 @@ export default function Layout({ children, title, phone = '0449 598 440', email 
                                     Fast turnaround and competitive pricing.
                                 </p>
                                 <div className="space-y-2 text-sm text-gray-300">
+                                    <p><strong>Address:</strong> 58 Leonard Avenue, Noble Park VIC 3174</p>
                                     <p><strong>Opening Hours:</strong> Monday to Friday, 08:00 AM to 06:00 PM</p>
                                     <p><strong>Phone:</strong> {phone}</p>
                                     <p><strong>Email:</strong> {email}</p>

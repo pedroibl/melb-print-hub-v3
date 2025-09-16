@@ -214,7 +214,7 @@ class QuoteFormTest extends DuskTestCase
                     ->type('description', 'I need professional brochures for my café "Café del Sol" ☕. The design should include our logo and showcase our menu items. We\'re looking for a modern, elegant design that reflects our brand identity.')
                     ->type('quantity', '1000')
                     ->type('size', 'A4 tri-fold')
-                    ->type('delivery_address', '456 Collins Street, Melbourne VIC 3000, Australia')
+                    ->type('delivery_address', '58 Leonard Avenue, Noble Park VIC 3174, Australia')
                     ->type('special_requirements', 'Please use eco-friendly paper and soy-based inks. Include spot UV on the front cover. 😊')
                     ->waitFor('button[type="submit"]:not([disabled])', 10)
                     ->press('Get Quote')

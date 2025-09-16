@@ -46,9 +46,9 @@ class HtmlEmailService
                 'subject' => 'New Contact Message - Melbourne Print Hub',
                 'headerSubtitle' => 'Professional Printing Solutions'
             ], function($message) use ($contactMessage) {
-                $message->to('pedroibl@yahoo.com')
+                $message->to('info@melbourneprinthub.com.au')
                         ->subject('New Contact Message - Melbourne Print Hub')
-                        ->from('pedroibl@yahoo.com', 'Melbourne Print Hub Website');
+                        ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub Website');
             });
 
             return true;
@@ -81,7 +81,7 @@ class HtmlEmailService
             ], function($message) use ($testData) {
                 $message->to('info@melbourneprinthub.com.au')
                         ->subject('Email Test - Melbourne Print Hub (' . ($testData['platform'] ?? 'unknown') . ')')
-                        ->from('info@melbourneprinthub.com.aum', 'Melbourne Print Hub Website');
+                        ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub Website');
             });
 
             return true;
@@ -134,7 +134,7 @@ class HtmlEmailService
             ], function($message) use ($contactMessage) {
                 $message->to($contactMessage->email)
                         ->subject('Message Received - Melbourne Print Hub')
-                        ->from('pedroibl@yahoo.com', 'Melbourne Print Hub');
+                        ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub');
             });
 
             return true;

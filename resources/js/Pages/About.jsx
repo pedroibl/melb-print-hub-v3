@@ -2,7 +2,24 @@ import Layout from '@/Components/Layout';
 
 export default function About({ phone, email, hours, csrf_token }) {
     return (
-        <Layout title="About Us" csrf_token={csrf_token}>
+        <Layout
+            title="About Melbourne Print Hub"
+            csrf_token={csrf_token}
+            meta={{
+                description: 'Learn about Melbourne Print Hub, a local Melbourne print partner delivering fast, high-quality business cards, signage, and marketing collateral with genuine customer service.',
+                keywords: 'about melbourne print hub, melbourne print partner, local print shop melbourne',
+                canonical: 'https://melbourneprinthub.com.au/about',
+                structuredData: [
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'AboutPage',
+                        name: 'About Melbourne Print Hub',
+                        description: 'Melbourne Print Hub is a locally owned print specialist supporting Melbourne businesses with fast turnaround printing and design services.',
+                        url: 'https://melbourneprinthub.com.au/about',
+                    },
+                ],
+            }}
+        >
             {/* Hero Section */}
             <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -24,17 +41,13 @@ export default function About({ phone, email, hours, csrf_token }) {
                                 Our Story
                             </h2>
                             <p className="text-lg text-gray-600 mb-6">
-                                Melbourne Print Hub was founded with a simple mission: to provide Melbourne businesses 
-                                with fast, reliable, and affordable printing services without compromising on quality.
+                                Melbourne Print Hub was founded to give local businesses a print partner that listens, delivers on deadlines, and protects brand consistency. We manage everything in-house—from pre-press to finishing—so you always know where your projects are up to.
                             </p>
                             <p className="text-lg text-gray-600 mb-6">
-                                We understand that in today's fast-paced business environment, you need printing 
-                                solutions that are not only professional but also delivered on time. That's why we've 
-                                built our business around speed, quality, and exceptional customer service.
+                                Our team comprises production specialists, designers, and account managers who understand the demands of Melbourne events, retail activations, property campaigns, and hospitality promotions. We triple-check files, colour profiles, and stock selections to ensure every piece looks as good as it does on screen.
                             </p>
                             <p className="text-lg text-gray-600">
-                                From small business cards to large format banners, we handle every project with 
-                                the same attention to detail and commitment to excellence.
+                                Whether you’re printing 250 urgent business cards or a full suite of exhibition signage, we bring the same attention to detail, communication, and quality control to every order.
                             </p>
                         </div>
                         <div className="bg-gray-100 rounded-lg p-8">
