@@ -38,7 +38,7 @@ class SendContactEmailJob implements ShouldQueue
                      "Message: " . $this->contactMessage->message . "\n\n" .
                      "Submitted at: " . $this->contactMessage->created_at->format('d/m/Y H:i'),
                 function ($message) {
-                    $message->to('pedroibl@yahoo.com')
+                    $message->to('info@melbourneprinthub.com.au')
                            ->subject('New Contact Message - Melbourne Print Hub');
                 });
 
@@ -48,7 +48,7 @@ class SendContactEmailJob implements ShouldQueue
                      "We have received your message and will get back to you within 24 hours.\n\n" .
                      "Your Message Summary:\n" .
                      "- Message: " . $this->contactMessage->message . "\n\n" .
-                     "If you need immediate assistance, please call us at 0449 598 440 or email pedroibl@yahoo.com.\n\n" .
+                     "If you need immediate assistance, please call us at 0449 598 440 or email info@melbourneprinthub.com.au\n\n" .
                      "Best regards,\nThe Melbourne Print Hub Team",
                 function ($message) {
                     $message->to($this->contactMessage->email)

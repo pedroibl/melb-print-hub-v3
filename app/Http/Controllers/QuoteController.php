@@ -204,7 +204,7 @@ class QuoteController extends Controller
                     ->get()
                     ->groupBy('category'),
                 'phone' => '0449 598 440',
-                'email' => 'pedroibl@yahoo.com',
+                'email' => 'info@melbourneprinthub.com.au',
                 'success' => 'Thank you! Your quote request has been sent successfully. We\'ll get back to you within 24 hours.',
                 'quoteRequest' => $quoteRequest,
                 'captcha' => [
@@ -231,7 +231,7 @@ class QuoteController extends Controller
                     ->get()
                     ->groupBy('category'),
                 'phone' => '0449 598 440',
-                'email' => 'pedroibl@yahoo.com',
+                'email' => 'info@melbourneprinthub.com.au',
                 'error' => 'Sorry, there was an error sending your request. Please try again or call us directly at 0449 598 440.',
                 'errors' => ['general' => 'Sorry, there was an error sending your request. Please try again or call us directly at 0449 598 440.'],
                 'captcha' => [

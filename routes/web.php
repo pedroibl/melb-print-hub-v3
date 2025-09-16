@@ -134,9 +134,9 @@ Message:
 {$contactMessage->message}
 
 Submitted at: " . now()->format('Y-m-d H:i:s'), function($message) {
-            $message->to('pedroibl@yahoo.com')
+            $message->to('info@melbourneprinthub.com.au')
                     ->subject('Test Email - Melbourne Print Hub')
-                    ->from('pedroibl@yahoo.com', 'Melbourne Print Hub Website');
+                    ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub Website');
         });
 
         return response()->json([
@@ -180,9 +180,9 @@ Message:
 {$contactMessage->message}
 
 Submitted at: " . now()->format('Y-m-d H:i:s'), function($message) {
-            $message->to('pedroibl@yahoo.com')
+            $message->to('info@melbourneprinthub.com.au')
                     ->subject('Test Form Submission - Melbourne Print Hub')
-                    ->from('pedroibl@yahoo.com', 'Melbourne Print Hub Website');
+                    ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub Website');
         });
         
         return response()->json([

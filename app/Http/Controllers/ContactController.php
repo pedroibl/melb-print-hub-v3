@@ -59,7 +59,7 @@ class ContactController extends Controller
 
         return Inertia::render('Contact', [
             'phone' => '0449 598 440',
-            'email' => 'pedroibl@yahoo.com',
+            'email' => 'info@melbourneprinthub.com.au',
             'hours' => 'Monday to Friday, 08:00 AM to 06:00 PM',
             'csrf_token' => csrf_token(), // Explicitly pass CSRF token
             'captcha' => [
@@ -153,7 +153,7 @@ class ContactController extends Controller
             Log::info('Returning Inertia response with success message');
             return Inertia::render('Contact', [
                 'phone' => '0449 598 440',
-                'email' => 'pedroibl@yahoo.com',
+                'email' => 'info@melbourneprinthub.com.au',
                 'hours' => 'Monday to Friday, 08:00 AM to 06:00 PM',
                 'success' => 'Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.',
                 'contactMessage' => $contactMessage,
@@ -176,7 +176,7 @@ class ContactController extends Controller
             // Return Inertia response with error message
             return Inertia::render('Contact', [
                 'phone' => '0449 598 440',
-                'email' => 'pedroibl@yahoo.com',
+                'email' => 'info@melbourneprinthub.com.au',
                 'hours' => 'Monday to Friday, 08:00 AM to 06:00 PM',
                 'error' => 'Sorry, there was an error sending your message. Please try again or call us directly at 0449 598 440.',
                 'errors' => ['general' => 'Sorry, there was an error sending your message. Please try again or call us directly at 0449 598 440.'],

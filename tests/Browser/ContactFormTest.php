@@ -36,7 +36,7 @@ class ContactFormTest extends DuskTestCase
                     ->waitFor('form', 10)
                     ->assertSee('Contact Us')
                     ->assertSee('0449 598 440')
-                    ->assertSee('pedroibl@yahoo.com')
+                    ->assertSee('info@melbourneprinthub.com.au')
                     ->assertSee('Monday to Friday, 08:00 AM to 06:00 PM');
             
             $loadTime = microtime(true) - $startTime;

@@ -20,9 +20,9 @@ class HtmlEmailService
                 'subject' => 'New Quote Request - Melbourne Print Hub',
                 'headerSubtitle' => 'Professional Printing Solutions'
             ], function($message) use ($quoteRequest) {
-                $message->to('pedroibl@yahoo.com')
+                $message->to('info@melbourneprinthub.com.au')
                         ->subject('New Quote Request - Melbourne Print Hub')
-                        ->from('pedroibl@yahoo.com', 'Melbourne Print Hub Website');
+                        ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub Website');
             });
 
             return true;
@@ -79,9 +79,9 @@ class HtmlEmailService
                 'subject' => 'Email Test - Melbourne Print Hub',
                 'headerSubtitle' => 'Email System Testing'
             ], function($message) use ($testData) {
-                $message->to('pedroibl@yahoo.com')
+                $message->to('info@melbourneprinthub.com.au')
                         ->subject('Email Test - Melbourne Print Hub (' . ($testData['platform'] ?? 'unknown') . ')')
-                        ->from('pedroibl@yahoo.com', 'Melbourne Print Hub Website');
+                        ->from('info@melbourneprinthub.com.aum', 'Melbourne Print Hub Website');
             });
 
             return true;
@@ -107,7 +107,7 @@ class HtmlEmailService
             ], function($message) use ($quoteRequest) {
                 $message->to($quoteRequest->email)
                         ->subject('Quote Request Received - Melbourne Print Hub')
-                        ->from('pedroibl@yahoo.com', 'Melbourne Print Hub');
+                        ->from('info@melbourneprinthub.com.au', 'Melbourne Print Hub');
             });
 
             return true;

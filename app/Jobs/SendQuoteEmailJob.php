@@ -41,7 +41,7 @@ class SendQuoteEmailJob implements ShouldQueue
                      "Description: " . $this->quoteRequest->description . "\n\n" .
                      "Submitted at: " . $this->quoteRequest->created_at->format('d/m/Y H:i'),
                 function ($message) {
-                    $message->to('pedroibl@yahoo.com')
+                    $message->to('info@melbourneprinthub.com.au')
                            ->subject('New Quote Request - Melbourne Print Hub');
                 });
 
@@ -53,7 +53,7 @@ class SendQuoteEmailJob implements ShouldQueue
                      "- Service: " . $this->quoteRequest->service . "\n" .
                      "- Quantity: " . $this->quoteRequest->quantity . "\n" .
                      "- Size: " . ($this->quoteRequest->size ?: 'Not specified') . "\n\n" .
-                     "If you have any questions in the meantime, please contact us at 0449 598 440 or pedroibl@yahoo.com\n\n" .
+                     "If you have any questions in the meantime, please contact us at 0449 598 440 or info@melbourneprinthub.com.au\n\n" .
                      "Best regards,\nThe Melbourne Print Hub Team",
                 function ($message) {
                     $message->to($this->quoteRequest->email)

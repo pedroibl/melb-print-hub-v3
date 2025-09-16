@@ -67,7 +67,7 @@ class EmailTestingService
             Log::info('Email test successful', [
                 'contact_message_id' => $contactMessage->id,
                 'platform' => $result['details']['platform'],
-                'email_sent_to' => 'pedroibl@yahoo.com'
+                'email_sent_to' => 'info@melbourneprinthub.com.au'
             ]);
 
             $result['success'] = true;
