@@ -1,6 +1,75 @@
 import Layout from '@/Components/Layout';
+import { useEffect, useState, useMemo } from 'react';
+
+const HERO_SLIDES = [
+    {
+        image: '/images/business-cards.jpg',
+        title: 'Business Cards That Stand Out',
+        description: 'Premium 350gsm stocks with matte, gloss, or velvet laminate. Perfect for networking across Melbourne.',
+        ctaLabel: 'Explore Business Cards',
+        ctaHref: '/services',
+        alt: 'Stack of freshly printed business cards with clean typography and brand colours',
+    },
+    {
+        image: '/images/flyers.jpg',
+        title: 'Flyers & Brochures for Every Campaign',
+        description: 'Full-colour flyers, folded brochures, and direct mail pieces with express printing and delivery.',
+        ctaLabel: 'See Flyer Options',
+        ctaHref: '/services',
+        alt: 'Colourful brochures and flyers laid out on a studio table',
+    },
+    {
+        image: '/images/banners.jpg',
+        title: 'Large Format Banners & Signage',
+        description: 'Pull-up banners, event backdrops, and outdoor signage printed with durable, UV-stable inks.',
+        ctaLabel: 'View Banner Solutions',
+        ctaHref: '/services',
+        alt: 'Event banners displayed at an indoor exhibition',
+    },
+    {
+        image: '/images/corflute-signs.jpg',
+        title: 'Corflute & Site Signage',
+        description: 'Weather-resistant corflute signage for construction, events, and retail promotions across Melbourne.',
+        ctaLabel: 'Order Signage',
+        ctaHref: '/services',
+        alt: 'Corflute signs stacked together ready for delivery',
+    },
+    {
+        image: '/images/melbourne-cityscape-1.jpg',
+        title: 'Local Production in the Heart of Melbourne',
+        description: 'Same-day print and courier options from our CBD location to keep your deadlines on track.',
+        ctaLabel: 'Request a Quote',
+        ctaHref: '/get-quote',
+        alt: 'Melbourne city skyline at dusk highlighting local service area',
+    },
+    {
+        image: '/images/melbourne-cityscape-2.jpg',
+        title: 'Trusted by Melbourne Businesses',
+        description: 'From hospitality to real estate, we support local brands with quality printing and personal service.',
+        ctaLabel: 'Work With Us',
+        ctaHref: '/contact',
+        alt: 'Melbourne laneway with vibrant signage and lights',
+    },
+];
 
 export default function Home({ services, phone, email, csrf_token }) {
+    const slides = useMemo(() => HERO_SLIDES, []);
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % slides.length);
+        }, 6000);
+
+        return () => clearInterval(interval);
+    }, [slides.length]);
+
+    const goToSlide = (index) => {
+        setCurrentSlide((index + slides.length) % slides.length);
+    };
+
+    const activeSlide = slides[currentSlide];
+
     return (
         <Layout
             title="Printing Services in Melbourne"
@@ -20,28 +89,89 @@ export default function Home({ services, phone, email, csrf_token }) {
                 ],
             }}
         >
-            {/* Hero Section */}
-            <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Printing Services in Melbourne That Move as Fast as Your Business
-                    </h1>
-                    <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        Melbourne Print Hub helps local businesses create professional marketing material—business cards, flyers, brochures, and banners—with same-day turnaround and expert design advice.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a 
-                            href="/get-quote" 
-                            className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors inline-block"
+            {/* Hero Carousel */}
+            <section className="relative text-white">
+                <div className="relative h-[500px] md:h-[560px] overflow-hidden">
+                    {slides.map((slide, index) => (
+                        <div
+                            key={slide.image}
+                            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                                index === currentSlide ? 'opacity-100' : 'opacity-0'
+                            }`}
+                            aria-hidden={index !== currentSlide}
                         >
-                            Get Your Quote Now
-                        </a>
-                        <a 
-                            href="/services" 
-                            className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors inline-block"
-                        >
-                            View Our Services
-                        </a>
+                            <img
+                                src={slide.image}
+                                alt={slide.alt}
+                                className="w-full h-full object-cover"
+                                loading={index === currentSlide ? 'eager' : 'lazy'}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-blue-900/40" />
+                        </div>
+                    ))}
+
+                    <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+                        <div className="max-w-3xl">
+                            <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+                                {activeSlide.title}
+                            </h1>
+                            <p className="text-lg md:text-2xl mb-8 text-blue-100">
+                                {activeSlide.description}
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <a
+                                    href={activeSlide.ctaHref}
+                                    className="bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
+                                >
+                                    {activeSlide.ctaLabel}
+                                </a>
+                                <a
+                                    href="/get-quote"
+                                    className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors inline-flex items-center justify-center"
+                                >
+                                    Request a Quote
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Carousel Controls */}
+                        <div className="absolute inset-x-0 bottom-6 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+                            <button
+                                type="button"
+                                onClick={() => goToSlide(currentSlide - 1)}
+                                className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                                aria-label="Previous slide"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+
+                            <div className="flex items-center space-x-2 mx-auto sm:mx-0">
+                                {slides.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        onClick={() => goToSlide(index)}
+                                        className={`h-2.5 rounded-full transition-all duration-300 ${
+                                            index === currentSlide ? 'w-8 bg-white' : 'w-3 bg-white/50 hover:bg-white/80'
+                                        }`}
+                                        aria-label={`Go to slide ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() => goToSlide(currentSlide + 1)}
+                                className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                                aria-label="Next slide"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
