@@ -40,4 +40,12 @@ return [
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
     ],
 
+    'google_analytics' => [
+        'id' => env('GOOGLE_ANALYTICS_ID'),
+    ],
+
+    'gtm' => [
+        'id' => env('GOOGLE_TAG_MANAGER_ID'),
+    ],
+
 ];
