@@ -21,12 +21,10 @@ class ProductSeeder extends Seeder
                 'description' => 'Professional business cards with high-quality printing. Perfect for networking and making lasting first impressions. Available in standard and premium finishes.',
                 'category' => 'Business Essentials',
                 'subcategory' => 'Identity Printing',
-                'base_price' => 29.99,
+                'base_price' => 99.99,
                 'pricing_options' => json_encode([
-                    ['quantity' => 100, 'price' => 29.99],
-                    ['quantity' => 250, 'price' => 49.99],
-                    ['quantity' => 500, 'price' => 79.99],
-                    ['quantity' => 1000, 'price' => 129.99],
+                    ['quantity' => 500, 'price' => 99.99],
+                    ['quantity' => 1000, 'price' => 149.99],
                 ]),
                 'specifications' => json_encode([
                     'size' => '85mm x 55mm',

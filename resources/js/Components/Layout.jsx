@@ -11,6 +11,47 @@ export default function Layout({
 }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+    const socialLinks = [
+        {
+            name: 'Facebook',
+            href: 'https://www.facebook.com/melbprinthub',
+            icon: (props) => (
+                <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                    <path d="M22 12.07C22 6.52 17.52 2 11.97 2S2 6.52 2 12.07C2 17.1 5.66 21.24 10.44 22v-7.02H7.9v-2.91h2.54V9.86c0-2.5 1.5-3.89 3.8-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22C18.34 21.24 22 17.1 22 12.07z" />
+                </svg>
+            ),
+        },
+        {
+            name: 'Instagram',
+            href: 'https://www.facebook.com/melbprinthub',
+            icon: ({ className, ...props }) => (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
+                    <rect x="3.75" y="3.75" width="16.5" height="16.5" rx="4.5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" />
+                </svg>
+            ),
+        },
+        {
+            name: 'LinkedIn',
+            href: 'https://www.facebook.com/melbprinthub',
+            icon: (props) => (
+                <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                    <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.6v1.71h.05c.5-.95 1.72-1.95 3.55-1.95 3.8 0 4.5 2.5 4.5 5.7V21h-4v-5.6c0-1.34-.03-3.06-1.87-3.06-1.88 0-2.17 1.47-2.17 2.96V21h-4z" />
+                </svg>
+            ),
+        },
+        {
+            name: 'Pinterest',
+            href: 'https://www.facebook.com/melbprinthub',
+            icon: (props) => (
+                <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+                    <path d="M12.04 2c-5.23 0-7.9 3.74-7.9 6.85 0 1.88.71 3.55 2.24 4.17.25.1.48 0 .55-.27.05-.19.18-.68.24-.88.08-.27.05-.37-.15-.61-.44-.52-.72-1.2-.72-2.16 0-2.78 2.09-5.27 5.44-5.27 2.97 0 4.6 1.82 4.6 4.25 0 3.02-1.34 5.58-3.32 5.58-1.1 0-1.93-.9-1.66-2.01.32-1.35.94-2.8.94-3.77 0-.87-.47-1.6-1.45-1.6-1.15 0-2.08 1.19-2.08 2.79 0 1.02.35 1.71.35 1.71s-1.19 5.05-1.4 5.94c-.42 1.77-.06 3.95-.03 4.17 0 .13.18.17.25.07.1-.13 1.3-1.61 1.71-3.1.12-.43.66-2.67.66-2.67.33.63 1.3 1.18 2.33 1.18 3.07 0 5.15-2.8 5.15-6.53C19.96 5.16 16.98 2 12.04 2z" />
+                </svg>
+            ),
+        },
+    ];
+
     const {
         description = 'Fast, high-quality printing services in Melbourne for business cards, flyers, brochures, banners, and signage.',
         keywords = 'printing services melbourne, business card printing melbourne, flyer printing melbourne, banner printing melbourne',
@@ -52,11 +93,7 @@ export default function Layout({
                 closes: '17:30',
             },
         ],
-        sameAs: [
-            'https://www.facebook.com/melbourneprinthub',
-            'https://www.instagram.com/melbourneprinthub',
-            'https://www.linkedin.com/company/melbourneprinthub',
-        ],
+        sameAs: socialLinks.map((link) => link.href),
     };
 
     return (
@@ -376,6 +413,24 @@ export default function Layout({
                                         >
                                             💬 Chat on WhatsApp
                                         </button>
+                                    </div>
+                                </div>
+                                <div className="pt-4">
+                                    <h4 className="text-sm font-semibold text-white uppercase tracking-wide">Connect With Us</h4>
+                                    <div className="mt-3 flex items-center space-x-4">
+                                        {socialLinks.map(({ name, href, icon: Icon }) => (
+                                            <a
+                                                key={name}
+                                                href={href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-gray-300 hover:text-white transition-colors"
+                                                aria-label={name}
+                                            >
+                                                <Icon className="h-5 w-5" aria-hidden="true" />
+                                                <span className="sr-only">{name}</span>
+                                            </a>
+                                        ))}
                                     </div>
                                 </div>
                             </div>

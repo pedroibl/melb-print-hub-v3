@@ -91,7 +91,7 @@ export default function Home({ services, phone, email, csrf_token }) {
         >
             {/* Hero Carousel */}
             <section className="relative text-white">
-                <div className="relative h-[500px] md:h-[560px] overflow-hidden">
+                <div className="relative min-h-[420px] sm:min-h-[480px] md:min-h-[560px] overflow-hidden">
                     {slides.map((slide, index) => (
                         <div
                             key={slide.image}
@@ -111,23 +111,23 @@ export default function Home({ services, phone, email, csrf_token }) {
                     ))}
 
                     <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-                        <div className="max-w-3xl">
-                            <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+                        <div className="max-w-xl md:max-w-3xl">
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 drop-shadow-lg">
                                 {activeSlide.title}
                             </h1>
-                            <p className="text-lg md:text-2xl mb-8 text-blue-100">
+                            <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-blue-100">
                                 {activeSlide.description}
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                 <a
                                     href={activeSlide.ctaHref}
-                                    className="bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
+                                    className="bg-white text-blue-700 px-5 py-3 text-base sm:px-6 sm:py-3.5 sm:text-lg rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
                                 >
                                     {activeSlide.ctaLabel}
                                 </a>
                                 <a
                                     href="/get-quote"
-                                    className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors inline-flex items-center justify-center"
+                                    className="border-2 border-white text-white px-5 py-3 text-base sm:px-6 sm:py-3.5 sm:text-lg rounded-lg font-semibold hover:bg-white/10 transition-colors inline-flex items-center justify-center"
                                 >
                                     Request a Quote
                                 </a>

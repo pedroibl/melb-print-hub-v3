@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use App\Models\Product;
 
@@ -13,26 +14,38 @@ class PageController extends Controller
      */
     public function home()
     {
-        $services = [
-            [
-                'name' => 'Business Cards',
-                'description' => 'Professional business cards with high-quality printing',
-                'icon' => 'card',
-                'price' => 'From $29.99'
-            ],
-            [
-                'name' => 'Flyers & Brochures',
-                'description' => 'Eye-catching marketing materials for your business',
-                'icon' => 'document',
-                'price' => 'From $39.99'
-            ],
-            [
-                'name' => 'Banners & Signs',
-                'description' => 'Large format printing for events and displays',
-                'icon' => 'flag',
-                'price' => 'From $89.99'
-            ]
+        $iconMap = [
+            'name-business-cards' => 'card',
+            'business-cards' => 'card',
+            'flyers' => 'document',
+            'brochures' => 'document',
+            'pull-up-banner' => 'flag',
+            'teardrop-banner' => 'flag',
+            'vinyl-banner' => 'flag',
+            'mesh-banner' => 'flag',
         ];
+
+        $categoryFallback = [
+            'Business Essentials' => 'card',
+            'Banner Solutions' => 'flag',
+        ];
+
+        $services = Product::active()
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->take(3)
+            ->get()
+            ->map(function (Product $product) use ($iconMap, $categoryFallback) {
+                $icon = $iconMap[$product->slug] ?? $categoryFallback[$product->category] ?? 'document';
+
+                return [
+                    'name' => $product->name,
+                    'description' => Str::limit($product->description, 120),
+                    'icon' => $icon,
+                    'price' => 'From $' . number_format($product->base_price, 2),
+                ];
+            })
+            ->values();
 
         return Inertia::render('Home', [
             'services' => $services,
