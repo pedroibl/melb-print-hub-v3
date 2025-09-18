@@ -110,15 +110,15 @@ export default function Home({ services, phone, email, csrf_token }) {
                         </div>
                     ))}
 
-                    <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-                        <div className="max-w-xl md:max-w-3xl">
+                    <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center md:items-start">
+                        <div className="w-full max-w-xl md:max-w-3xl text-center md:text-left">
                             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 drop-shadow-lg">
                                 {activeSlide.title}
                             </h1>
                             <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-blue-100">
                                 {activeSlide.description}
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
                                 <a
                                     href={activeSlide.ctaHref}
                                     className="bg-white text-blue-700 px-5 py-3 text-base sm:px-6 sm:py-3.5 sm:text-lg rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
@@ -135,42 +135,44 @@ export default function Home({ services, phone, email, csrf_token }) {
                         </div>
 
                         {/* Carousel Controls */}
-                        <div className="absolute inset-x-0 bottom-6 flex items-center justify-between px-4 sm:px-6 lg:px-8">
-                            <button
-                                type="button"
-                                onClick={() => goToSlide(currentSlide - 1)}
-                                className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
-                                aria-label="Previous slide"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
+                        <div className="absolute inset-x-0 bottom-6">
+                            <div className="max-w-xl md:max-w-3xl mx-auto flex items-center justify-center sm:justify-between gap-4 px-4 sm:px-0">
+                                <button
+                                    type="button"
+                                    onClick={() => goToSlide(currentSlide - 1)}
+                                    className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                                    aria-label="Previous slide"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
 
-                            <div className="flex items-center space-x-2 mx-auto sm:mx-0">
-                                {slides.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        type="button"
-                                        onClick={() => goToSlide(index)}
-                                        className={`h-2.5 rounded-full transition-all duration-300 ${
-                                            index === currentSlide ? 'w-8 bg-white' : 'w-3 bg-white/50 hover:bg-white/80'
-                                        }`}
-                                        aria-label={`Go to slide ${index + 1}`}
-                                    />
-                                ))}
+                                <div className="flex items-center space-x-2">
+                                    {slides.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            type="button"
+                                            onClick={() => goToSlide(index)}
+                                            className={`h-2.5 rounded-full transition-all duration-300 ${
+                                                index === currentSlide ? 'w-8 bg-white' : 'w-3 bg-white/50 hover:bg-white/80'
+                                            }`}
+                                            aria-label={`Go to slide ${index + 1}`}
+                                        />
+                                    ))}
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onClick={() => goToSlide(currentSlide + 1)}
+                                    className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                                    aria-label="Next slide"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
-
-                            <button
-                                type="button"
-                                onClick={() => goToSlide(currentSlide + 1)}
-                                className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
-                                aria-label="Next slide"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>
