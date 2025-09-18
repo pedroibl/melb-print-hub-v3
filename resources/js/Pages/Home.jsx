@@ -110,15 +110,15 @@ export default function Home({ services, phone, email, csrf_token }) {
                         </div>
                     ))}
 
-                    <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center md:items-start">
-                        <div className="w-full max-w-xl md:max-w-3xl text-center md:text-left">
+                    <div className="relative h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center">
+                        <div className="w-full max-w-3xl">
                             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 drop-shadow-lg">
                                 {activeSlide.title}
                             </h1>
                             <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-blue-100">
                                 {activeSlide.description}
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                                 <a
                                     href={activeSlide.ctaHref}
                                     className="bg-white text-blue-700 px-5 py-3 text-base sm:px-6 sm:py-3.5 sm:text-lg rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
@@ -135,8 +135,8 @@ export default function Home({ services, phone, email, csrf_token }) {
                         </div>
 
                         {/* Carousel Controls */}
-                        <div className="absolute inset-x-0 bottom-6">
-                            <div className="max-w-xl md:max-w-3xl mx-auto flex items-center justify-center sm:justify-between gap-4 px-4 sm:px-0">
+                        <div className="absolute inset-x-0 bottom-6 px-4">
+                            <div className="flex items-center justify-center gap-4">
                                 <button
                                     type="button"
                                     onClick={() => goToSlide(currentSlide - 1)}
